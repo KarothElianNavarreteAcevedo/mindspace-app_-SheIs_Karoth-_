@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>Mi Zona Segura | MindSpace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;600&family=Space+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Space+Mono:wght@100..900&family=Syne:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Retrowave Grid Background */
+        .grid-bg {
+            background-image: 
+                linear-gradient(to right, rgba(188, 19, 254, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(188, 19, 254, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* Burning Animation */
+        @keyframes burnUp {
+            0% { transform: translateY(0) scale(1); opacity: 1; filter: blur(0); }
+            50% { transform: translateY(-20px) scale(1.1); filter: blur(2px); color: #fe00fe; }
+            100% { transform: translateY(-100px) scale(0); opacity: 0; filter: blur(10px); }
+        }
+        .burning-text {
+            animation: burnUp 1.5s ease-in forwards;
+        }
+
+        .fire-particle {
+            position: absolute;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background: #fe00fe;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 10px #fe00fe;
+        }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(27, 27, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(227, 253, 255, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#1b1b20",
+                        "on-primary": "#00373a",
+                        "outline": "#849495",
+                        "on-background": "#e4e1e9",
+                        "secondary-fixed-dim": "#ffabf3",
+                        "tertiary-container": "#36fd0f",
+                        "surface-bright": "#39383e",
+                        "on-surface": "#e4e1e9",
+                        "primary": "#e3fdff",
+                        "on-tertiary-fixed": "#022100",
+                        "tertiary-fixed": "#79ff5b",
+                        "surface-container": "#1f1f25",
+                        "on-primary-fixed-variant": "#004f53",
+                        "primary-fixed": "#6ff6ff",
+                        "surface-container-high": "#2a292f",
+                        "on-primary-fixed": "#002022",
+                        "primary-fixed-dim": "#00dce6",
+                        "tertiary": "#e8ffda",
+                        "on-error": "#690005",
+                        "secondary": "#ffabf3",
+                        "on-tertiary": "#053900",
+                        "on-tertiary-fixed-variant": "#095300",
+                        "primary-container": "#00f3ff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e4e1e9",
+                        "background": "#131318",
+                        "on-secondary-container": "#500050",
+                        "tertiary-fixed-dim": "#2ae500",
+                        "surface-tint": "#00dce6",
+                        "surface-container-highest": "#35343a",
+                        "secondary-fixed": "#ffd7f5",
+                        "on-surface-variant": "#b9cacb",
+                        "on-secondary-fixed-variant": "#810081",
+                        "on-secondary-fixed": "#380038",
+                        "surface-container-lowest": "#0e0e13",
+                        "on-primary-container": "#006b71",
+                        "error-container": "#93000a",
+                        "outline-variant": "#3a494b",
+                        "surface-dim": "#131318",
+                        "secondary-container": "#fe00fe",
+                        "inverse-primary": "#00696f",
+                        "surface-variant": "#35343a",
+                        "surface": "#131318",
+                        "on-tertiary-container": "#107000",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#5b005b",
+                        "inverse-on-surface": "#303036"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Syne"],
+                        "headline-lg": ["Syne"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Space Mono"],
+                        "display-lg": ["Syne"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen overflow-x-hidden selection:bg-secondary selection:text-background">
+<div class="scanlines"></div>
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile md:px-margin-desktop h-16 bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_15px_rgba(188,19,254,0.3)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">MindSpace</span>
+</div>
+<div class="hidden md:flex gap-8 font-label-caps text-label-caps">
+<a class="text-on-surface-variant hover:text-secondary transition-all active:scale-95" href="#">BRAIN</a>
+<a class="text-on-surface-variant hover:text-secondary transition-all active:scale-95" href="#">LEARN</a>
+<a class="text-secondary drop-shadow-[0_0_8px_rgba(57,255,20,0.8)]" href="#">SOS</a>
+<a class="text-on-surface-variant hover:text-secondary transition-all active:scale-95" href="#">FEEDBACK</a>
+</div>
+<button class="material-symbols-outlined text-primary hover:text-secondary transition-all">settings</button>
+</header>
+<main class="relative pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<!-- Hero Section -->
+<section class="relative mb-16 text-center">
+<div class="absolute inset-0 grid-bg -z-10 opacity-30"></div>
+<h1 class="font-headline-lg-mobile md:text-headline-lg text-primary mb-4">MI ZONA SEGURA</h1>
+<p class="max-w-2xl mx-auto text-on-surface-variant font-body-md">Un santuario digital para tu mente. Encuentra calma, quema tus miedos y reconecta con lo que te hace feliz.</p>
+</section>
+<!-- Bento Grid Main Content -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- GALERÍA DE MOTIVACIÓN (6 cols) -->
+<section class="lg:col-span-7 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined">auto_awesome</span> GALERÍA DE MOTIVACIÓN
+                    </h2>
+<button class="bg-primary/10 border border-primary/40 px-4 py-2 rounded-full font-label-caps text-[10px] hover:bg-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">upload</span> SUBIR MOMENTO
+                    </button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<div class="aspect-square glass-panel rounded-xl overflow-hidden group hover:border-primary/60 transition-all">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A warm, nostalgic photograph of a golden retriever puppy playing in a sun-drenched backyard during the golden hour. The image has a soft retrowave filter with gentle pink and orange hues, emphasizing a feeling of safety, unconditional love, and pure joy." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCxpSCZ0xKriJ78-NQboGdhi3nHzte5l__wI3O2O0a21NFrvnl3ij4l4xdFqT_Rxj6dHFLf9fis4NS5yT39TWow6NolJ-iwJKwaK20NaTNG2IuqxAR8f_fFWqSU38WIRQIeW1sh7FOk6qLaKhlGJyi_l3TxTrFevMlNEJ6FC3WZTJUDCso4J75i_H-HnOBqvRTbWtzaL1d2X5ak-tsy74f-TZsb3SDxt6gMT9TdZcOiMNL94nWfv3yNB2JTHTD4FeFFj82lzmamEZM')"></div>
+</div>
+<div class="aspect-square glass-panel rounded-xl overflow-hidden group hover:border-primary/60 transition-all">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A serene landscape of a misty mountain range at sunrise, featuring soft pastel purples and vibrant neon cyans reflected in a calm lake. The mood is peaceful and expansive, following a modern retrowave aesthetic with a deep sense of tranquility and mental clarity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDlfMnA_KwsKwihRnWtwl9Rce9rimxU2DN7xCX4WOsNc4R1FZYo1968qgCcS5MFSO1zkRI9QEbLtD1eMZtWzmzJfKIUXSHp18gy1Lrr5uNJ0aYghwvd75QxaNEfwe6K5IOKKKQJA5CAopWikLLFndWxrFjrIoqMKYNXUq5KHaJtkj7Uvs-Y5OYA1LOG9pRuSnZACPGJc2I8-uyzWtby3WkF5U_sRNHGez1EtpsX54GwEOEY0BQDxvniaVvB6hou-YbO2SfTvmahWvk')"></div>
+</div>
+<div class="aspect-square glass-panel rounded-xl overflow-hidden group hover:border-primary/60 transition-all">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A macro shot of a bright green sprout emerging from dark, rich soil, illuminated by a glowing cyan rim light. This symbolic image represents growth and hope, presented with high-contrast cinematic lighting that aligns with the digital retrowave brand identity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDidSuwEnUSOn_EMs0-gWK3-QjYsm-UgXq2EiX-GLvH5p2eO_xImq4LpQCpY-EhWBy-tjX6EhRUHGd5See7iuiytrBohEQsO92ltEnw1iQt9SflJPrHdy2q4L-rUizDCjpv2mZSobIcbhK4ZE7mjjL51_t8TSUmgBOO4_EBT4Ql1PRw0J9dGTluXpd6ryNMdgJ-M5DT3CiD0Rq_ev96xS721QhpUuxxgOso5qa5gA0zfpYbJQKBRytHrkwwTdZMqVPS-g2SXAjIcjg')"></div>
+</div>
+<div class="aspect-square glass-panel rounded-xl overflow-hidden group hover:border-primary/60 transition-all md:col-span-2 md:aspect-auto h-48">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A cozy indoor scene showing a digital artist's workspace at night, with multiple glowing screens displaying vibrant neon illustrations. The room is filled with soft purple ambient light, a steaming mug of tea, and a plush armchair, creating an atmosphere of creative safety and comfort." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsx3-QjG60-ffZjjhpoRB3GULmq1NasWI7nHr4OzrDj9z8nas-rGcIReS-nlM0Tb3I9La9kauAS-ycQzPdibomqmMkgDEYg3hee0mQWsmfW2fGzU7-RVfH-bdN53HxFfcvxxhENuE1NniqCMu6IQ2su0iTm0xmS6_7RILIdqceemKzprvvtjUQEgi7VNePj6k2g1V01zoymLzo4W-OazAL63x4J9NXdjCoZ0W4_LHkKnWgkfe5mV78aOOy8gPTn4jI3-ryEXLyAV0')"></div>
+</div>
+<div class="aspect-square glass-panel rounded-xl overflow-hidden group hover:border-primary/60 transition-all">
+<div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" data-alt="A silhouette of two friends high-fiving against a massive, setting neon sun on a futuristic horizon. The color palette is dominated by intense pinks and deep blacks, capturing a moment of triumph and connection in a high-fidelity retro-futuristic style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvRIJKWO1KnxKu5ALOdZ9WgprCsNOX56w4IzaBwVN4ZqlCSrY-CR67kSLc-EEo2uubScd8fIKjg10YY18lMMz9GScTDJ5nZ-QzpQKUQFWkV5ZgSbZ3cNH2eszwVZS-a3m5gyGo8arvoi5zYvD2CyO9fQrC0BrwY_61OV94m1yuSnPLrYmrs1vgiooA-dhFeKSrpLXsPovoiAqPterZ-SlANAJZIHIbgpxfPD2oUJSAHOJd6_kDGCGrKadiN5m5FDUhA6RzMipFtC8')"></div>
+</div>
+</div>
+</section>
+<!-- ESCRIBIR Y QUEMAR (5 cols) -->
+<section class="lg:col-span-5 flex flex-col gap-6">
+<h2 class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined">local_fire_department</span> ESCRIBIR Y QUEMAR
+                </h2>
+<div class="glass-panel p-8 rounded-xl h-full flex flex-col relative overflow-hidden">
+<p class="text-on-surface-variant text-sm mb-6">Confía tus pensamientos negativos a la llama. Escríbelos aquí y deja que se desvanezcan para siempre.</p>
+<div class="relative flex-grow flex flex-col" id="burn-container">
+<textarea class="w-full h-32 bg-transparent border-none focus:ring-0 text-primary placeholder:text-on-surface-variant/30 resize-none font-body-md" id="burn-textarea" placeholder="¿Qué te preocupa hoy?..."></textarea>
+<div class="absolute inset-0 pointer-events-none hidden flex-col items-center justify-center" id="burning-zone">
+<p class="text-xl font-bold text-center px-4" id="floating-text"></p>
+</div>
+<div class="mt-auto flex justify-center">
+<button class="w-full py-4 rounded-xl border border-secondary/40 text-secondary font-label-caps hover:bg-secondary/10 hover:shadow-[0_0_20px_rgba(254,0,254,0.3)] transition-all flex items-center justify-center gap-3 active:scale-95" id="burn-button" onclick="startBurning()">
+<span class="material-symbols-outlined">gite</span> LIBERAR AL FUEGO
+                            </button>
+</div>
+</div>
+<!-- Decorative Ember Effect -->
+<div class="absolute bottom-0 left-0 w-full h-32 pointer-events-none" id="embers"></div>
+</div>
+</section>
+<!-- PLAYLISTS ANTI-ANSIEDAD (Full Width/Bento Row) -->
+<section class="lg:col-span-12 flex flex-col gap-6 mt-8">
+<h2 class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined">graphic_eq</span> PLAYLISTS ANTI-ANSIEDAD
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Playlist Card 1 -->
+<button class="group relative overflow-hidden glass-panel p-6 rounded-xl text-left hover:border-secondary transition-all active:scale-95">
+<div class="absolute -right-8 -top-8 w-24 h-24 bg-secondary/10 rounded-full blur-2xl group-hover:bg-secondary/20 transition-all"></div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-4">mood_bad</span>
+<h3 class="font-headline-lg-mobile text-xl text-primary mb-1">Estoy estresado</h3>
+<p class="text-on-surface-variant text-xs font-label-caps">FRECUENCIAS ALPHA • 15 MIN</p>
+<div class="mt-6 flex items-center gap-2 text-secondary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-[10px] font-label-caps">REPRODUCIR</span>
+</div>
+</button>
+<!-- Playlist Card 2 -->
+<button class="group relative overflow-hidden glass-panel p-6 rounded-xl text-left hover:border-secondary transition-all active:scale-95">
+<div class="absolute -right-8 -top-8 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
+<span class="material-symbols-outlined text-4xl text-primary mb-4">sentiment_very_dissatisfied</span>
+<h3 class="font-headline-lg-mobile text-xl text-primary mb-1">Estoy triste</h3>
+<p class="text-on-surface-variant text-xs font-label-caps">LUZ CÁLIDA SONORA • 22 MIN</p>
+<div class="mt-6 flex items-center gap-2 text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-[10px] font-label-caps">REPRODUCIR</span>
+</div>
+</button>
+<!-- Playlist Card 3 -->
+<button class="group relative overflow-hidden glass-panel p-6 rounded-xl text-left hover:border-secondary transition-all active:scale-95">
+<div class="absolute -right-8 -top-8 w-24 h-24 bg-tertiary-fixed-dim/10 rounded-full blur-2xl group-hover:bg-tertiary-fixed-dim/20 transition-all"></div>
+<span class="material-symbols-outlined text-4xl text-tertiary-fixed-dim mb-4">bedtime</span>
+<h3 class="font-headline-lg-mobile text-xl text-primary mb-1">No puedo dormir</h3>
+<p class="text-on-surface-variant text-xs font-label-caps">RUIDO ROSA PROFUNDO • 45 MIN</p>
+<div class="mt-6 flex items-center gap-2 text-tertiary-fixed-dim opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-[10px] font-label-caps">REPRODUCIR</span>
+</div>
+</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-surface-container-lowest/95 backdrop-blur-3xl border-t-4 border-primary shadow-[0_-15px_50px_rgba(0,0,0,0.8)]">
+<a class="flex flex-col items-center justify-center bg-tertiary-container/20 rounded-xl px-6 py-3 border border-tertiary-container/30 text-tertiary-fixed-dim drop-shadow-[0_0_12px_rgba(42,229,0,0.9)]" href="index.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-label-caps text-[10px]">Brain</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="ciencia.html">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-label-caps text-[10px]">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="calma.html">
+<span class="material-symbols-outlined">graphic_eq</span>
+<span class="font-label-caps text-[10px]">Calma</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="sos.html">
+<span class="material-symbols-outlined">emergency</span>
+<span class="font-label-caps text-[10px]">SOS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="feedback.html">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-caps text-[10px]">Feedback</span>
+</a>
+</nav>
+<script>
+        function startBurning() {
+            const textarea = document.getElementById('burn-textarea');
+            const burnZone = document.getElementById('burning-zone');
+            const floatingText = document.getElementById('floating-text');
+            const button = document.getElementById('burn-button');
+            const text = textarea.value.trim();
+
+            if (!text) return;
+
+            // Prepare the scene
+            floatingText.innerText = text;
+            textarea.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+            button.disabled = true;
+            button.classList.add('opacity-50');
+            burnZone.classList.remove('hidden');
+            burnZone.classList.add('flex');
+            floatingText.classList.add('burning-text');
+
+            // Spark particles
+            for(let i=0; i<30; i++) {
+                createFireParticle();
+            }
+
+            // Reset after animation
+            setTimeout(() => {
+                textarea.value = '';
+                textarea.classList.remove('opacity-0');
+                floatingText.classList.remove('burning-text');
+                burnZone.classList.add('hidden');
+                burnZone.classList.remove('flex');
+                button.disabled = false;
+                button.classList.remove('opacity-50');
+            }, 1600);
+        }
+
+        function createFireParticle() {
+            const container = document.getElementById('embers');
+            const particle = document.createElement('div');
+            particle.className = 'fire-particle';
+            
+            const startX = Math.random() * 100;
+            const duration = 0.5 + Math.random() * 1;
+            const size = 2 + Math.random() * 4;
+            
+            particle.style.left = `${startX}%`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.animation = `burnUp ${duration}s ease-out forwards`;
+            particle.style.background = Math.random() > 0.5 ? '#fe00fe' : '#00f3ff';
+            
+            container.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, duration * 1000);
+        }
+
+        // Ambient particles for the background
+        setInterval(createFireParticle, 800);
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>MindSpace - Zona de Descompresión</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Inter:wght@400;500&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --neon-primary: #00f3ff;
+            --neon-secondary: #fe00fe;
+            --neon-tertiary: #36fd0f;
+        }
+
+        body {
+            background-color: #131318;
+            color: #e4e1e9;
+            overflow-x: hidden;
+        }
+
+        .scanline-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 100;
+        }
+
+        .grid-background {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center top;
+            height: 200vh;
+            z-index: -1;
+        }
+
+        @keyframes breath {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(0, 243, 255, 0.4)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.8)); }
+        }
+
+        .animate-breath {
+            animation: breath 4s ease-in-out infinite;
+        }
+
+        .glass-panel {
+            background: rgba(27, 27, 32, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 243, 255, 1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .neon-text-glow {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .progress-segment {
+            height: 8px;
+            background: #1f1f25;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-segment-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary));
+            box-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#1b1b20",
+                        "on-primary": "#00373a",
+                        "outline": "#849495",
+                        "on-background": "#e4e1e9",
+                        "secondary-fixed-dim": "#ffabf3",
+                        "tertiary-container": "#36fd0f",
+                        "surface-bright": "#39383e",
+                        "on-surface": "#e4e1e9",
+                        "primary": "#e3fdff",
+                        "on-tertiary-fixed": "#022100",
+                        "tertiary-fixed": "#79ff5b",
+                        "surface-container": "#1f1f25",
+                        "on-primary-fixed-variant": "#004f53",
+                        "primary-fixed": "#6ff6ff",
+                        "surface-container-high": "#2a292f",
+                        "on-primary-fixed": "#002022",
+                        "primary-fixed-dim": "#00dce6",
+                        "tertiary": "#e8ffda",
+                        "on-error": "#690005",
+                        "secondary": "#ffabf3",
+                        "on-tertiary": "#053900",
+                        "on-tertiary-fixed-variant": "#095300",
+                        "primary-container": "#00f3ff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e4e1e9",
+                        "background": "#131318",
+                        "on-secondary-container": "#500050",
+                        "tertiary-fixed-dim": "#2ae500",
+                        "surface-tint": "#00dce6",
+                        "surface-container-highest": "#35343a",
+                        "secondary-fixed": "#ffd7f5",
+                        "on-surface-variant": "#b9cacb",
+                        "on-secondary-fixed-variant": "#810081",
+                        "on-secondary-fixed": "#380038",
+                        "surface-container-lowest": "#0e0e13",
+                        "on-primary-container": "#006b71",
+                        "error-container": "#93000a",
+                        "outline-variant": "#3a494b",
+                        "surface-dim": "#131318",
+                        "secondary-container": "#fe00fe",
+                        "inverse-primary": "#00696f",
+                        "surface-variant": "#35343a",
+                        "surface": "#131318",
+                        "on-tertiary-container": "#107000",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#5b005b",
+                        "inverse-on-surface": "#303036"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    fontFamily: {
+                        "headline-lg-mobile": ["Syne"],
+                        "headline-lg": ["Syne"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Space Mono"],
+                        "display-lg": ["Syne"]
+                    },
+                    fontSize: {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md selection:bg-secondary selection:text-background">
+<div class="scanline-overlay"></div>
+<div class="grid-background"></div>
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-background/80 dark:bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_15px_rgba(188,19,254,0.3)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">MindSpace</h1>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-high/50 px-4 py-2 rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="font-label-caps text-label-caps text-secondary tracking-widest">1,240 LOGROS</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile max-w-container-max mx-auto space-y-12">
+<!-- Hero Header -->
+<section class="text-center">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase tracking-[0.2em] neon-text-glow">
+                Zona de Descompresión
+            </h2>
+<p class="text-on-surface-variant font-label-caps mt-2">ESTADO NEURAL: ESTABLE // OPTIMIZANDO CALMA</p>
+</section>
+<!-- Avatar de Evolución Section -->
+<section class="relative flex flex-col items-center justify-center py-12">
+<div class="absolute inset-0 flex items-center justify-center opacity-20 blur-3xl pointer-events-none">
+<div class="w-64 h-64 bg-primary rounded-full"></div>
+</div>
+<!-- Evolution Avatar -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 animate-breath">
+<div class="absolute inset-0 glass-panel rounded-full border-2 border-primary/40 flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A futuristic, high-detail silhouette of a human figure sitting in a lotus meditation pose. The figure is composed of glowing cyan circuit lines and ethereal stardust. The background is a dark deep-space void with soft purple nebula wisps. The style is modern retrowave, with sharp neon edges and high-fidelity 3D rendering, conveying a sense of digital enlightenment and neural health." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6XTfF-oo8ykpcYQx-ZKzh6sPtqj-Rr03xHngpWvG_C-C9gI0vXeJSUZ2K_vo33EA4_Nc3XMPjpROjXLri4qVmYrUDPs9-FfOsOi3cxBwSVFjEsyR3OZemDQHDbc6pRsJlAdUK4SqZ2YCzPq4NOyrZb2GC5MOp3w7GK5pvqIEYSqrPfgk42HUMNUny3VgJROnxKUJk9HXogoSag1AlvhEicKGxQI89-W_PCr7HhB7LeOe-DYILVC3-Dx07UoCqoHmcsdGm7VadxQE"/>
+</div>
+<!-- Vitality Rings -->
+<div class="absolute -inset-4 border border-dashed border-primary/20 rounded-full animate-[spin_20s_linear_infinite]"></div>
+<div class="absolute -inset-8 border border-dotted border-secondary/20 rounded-full animate-[spin_30s_linear_infinite_reverse]"></div>
+</div>
+<!-- Vitality Bar -->
+<div class="mt-12 w-full max-w-md space-y-4">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-primary">Nivel de Vitalidad</span>
+<span class="font-label-caps text-label-caps text-secondary">88%</span>
+</div>
+<div class="flex gap-1 h-3">
+<!-- Segmented Progress Bar -->
+<div class="flex-1 bg-primary shadow-[0_0_8px_#00f3ff]"></div>
+<div class="flex-1 bg-primary shadow-[0_0_8px_#00f3ff]"></div>
+<div class="flex-1 bg-primary shadow-[0_0_8px_#00f3ff]"></div>
+<div class="flex-1 bg-primary shadow-[0_0_8px_#00f3ff]"></div>
+<div class="flex-1 bg-primary shadow-[0_0_8px_#00f3ff]"></div>
+<div class="flex-1 bg-primary shadow-[0_0_8px_#00f3ff]"></div>
+<div class="flex-1 bg-primary/40"></div>
+<div class="flex-1 bg-primary/20"></div>
+</div>
+<p class="text-center text-on-surface-variant text-xs font-label-caps italic">Tu jardín digital florece con tu energía.</p>
+</div>
+</section>
+<!-- Minijuegos de Alivio (Bento Grid) -->
+<section class="space-y-6">
+<h3 class="font-label-caps text-label-caps text-secondary border-l-4 border-secondary pl-4">MINIJUEGOS DE ALIVIO</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Game 1 -->
+<div class="glass-panel p-6 rounded-xl space-y-4 group cursor-pointer active:scale-95 transition-transform">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-lg text-primary group-hover:shadow-[0_0_15px_#00f3ff]">
+<span class="material-symbols-outlined text-3xl">bubble_chart</span>
+</div>
+<div>
+<h4 class="font-headline-lg-mobile text-xl text-primary">Burbujas de Calma</h4>
+<p class="text-on-surface-variant text-sm mt-1">Explota burbujas siguiendo tu ritmo respiratorio.</p>
+</div>
+<div class="pt-4 border-t border-primary/10 flex justify-between items-center text-xs font-label-caps">
+<span class="text-secondary">+15 Monedas</span>
+<span class="text-on-surface-variant">JUGAR</span>
+</div>
+</div>
+<!-- Game 2 -->
+<div class="glass-panel p-6 rounded-xl space-y-4 group cursor-pointer active:scale-95 transition-transform">
+<div class="w-12 h-12 flex items-center justify-center bg-secondary/10 rounded-lg text-secondary group-hover:shadow-[0_0_15px_#fe00fe]">
+<span class="material-symbols-outlined text-3xl">psychiatry</span>
+</div>
+<div>
+<h4 class="font-headline-lg-mobile text-xl text-secondary">Caza Pensamientos</h4>
+<p class="text-on-surface-variant text-sm mt-1">Transforma nubes oscuras en destellos positivos.</p>
+</div>
+<div class="pt-4 border-t border-secondary/10 flex justify-between items-center text-xs font-label-caps">
+<span class="text-primary">+25 Monedas</span>
+<span class="text-on-surface-variant">JUGAR</span>
+</div>
+</div>
+<!-- Game 3 -->
+<div class="glass-panel p-6 rounded-xl space-y-4 group cursor-pointer active:scale-95 transition-transform">
+<div class="w-12 h-12 flex items-center justify-center bg-tertiary-fixed-dim/10 rounded-lg text-tertiary-fixed-dim group-hover:shadow-[0_0_15px_#36fd0f]">
+<span class="material-symbols-outlined text-3xl">potted_plant</span>
+</div>
+<div>
+<h4 class="font-headline-lg-mobile text-xl text-tertiary-fixed-dim">Jardín Virtual</h4>
+<p class="text-on-surface-variant text-sm mt-1">Cuida y observa el crecimiento de tu ecosistema.</p>
+</div>
+<div class="pt-4 border-t border-tertiary/10 flex justify-between items-center text-xs font-label-caps">
+<span class="text-primary">Evolución: 64%</span>
+<span class="text-on-surface-variant">ENTRAR</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Misiones Diarias -->
+<section class="space-y-6">
+<h3 class="font-label-caps text-label-caps text-secondary border-l-4 border-secondary pl-4">MISIONES DIARIAS</h3>
+<div class="space-y-3">
+<div class="glass-panel p-4 flex items-center gap-4 hover:translate-x-2 transition-transform cursor-pointer">
+<div class="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">water_drop</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">Toma agua</p>
+<p class="text-xs text-on-surface-variant">Bebe 250ml para hidratar tu sistema</p>
+</div>
+<button class="bg-primary/20 hover:bg-primary/40 text-primary px-4 py-1 rounded text-xs font-label-caps transition-colors">COMPLETAR</button>
+</div>
+<div class="glass-panel p-4 flex items-center gap-4 hover:translate-x-2 transition-transform cursor-pointer">
+<div class="w-10 h-10 rounded-full border border-secondary/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">directions_walk</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">10 min de caminata</p>
+<p class="text-xs text-on-surface-variant">Conecta con el mundo real un momento</p>
+</div>
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="text-xs font-label-caps">LISTO</span>
+</div>
+</div>
+<div class="glass-panel p-4 flex items-center gap-4 hover:translate-x-2 transition-transform cursor-pointer">
+<div class="w-10 h-10 rounded-full border border-tertiary/30 flex items-center justify-center text-tertiary-fixed-dim">
+<span class="material-symbols-outlined">self_care</span>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">Postura Correcta</p>
+<p class="text-xs text-on-surface-variant">Endereza tu espalda por 5 minutos</p>
+</div>
+<button class="bg-primary/20 hover:bg-primary/40 text-primary px-4 py-1 rounded text-xs font-label-caps transition-colors">COMPLETAR</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-surface-container-lowest/95 backdrop-blur-3xl border-t-4 border-primary shadow-[0_-15px_50px_rgba(0,0,0,0.8)]">
+<a class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_12px_rgba(0,243,255,0.9)] bg-tertiary-container/20 rounded-xl px-3 py-1 border border-tertiary-container/30 scale-110" href="index.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-label-caps text-[10px] mt-1">Brain</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="ciencia.html">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-label-caps text-[10px] mt-1">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="calma.html">
+<span class="material-symbols-outlined">graphic_eq</span>
+<span class="font-label-caps text-[10px] mt-1">Calma</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="sos.html">
+<span class="material-symbols-outlined">emergency</span>
+<span class="font-label-caps text-[10px] mt-1">SOS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="feedback.html">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-caps text-[10px] mt-1">Feedback</span>
+</a>
+</nav>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('click', function() {
+                this.classList.add('scale-95');
+                setTimeout(() => this.classList.remove('scale-95'), 100);
+            });
+        });
+
+        // Background parallax effect
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            const grid = document.querySelector('.grid-background');
+            grid.style.transform = `perspective(500px) rotateX(60deg) translateX(${(x - 0.5) * 20}px) translateY(${(y - 0.5) * 20}px)`;
+        });
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

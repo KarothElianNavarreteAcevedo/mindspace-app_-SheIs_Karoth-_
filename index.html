@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>MindSpace - Explora tu Cerebro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#849495",
+                        "on-tertiary": "#053900",
+                        "surface-container": "#1f1f25",
+                        "inverse-surface": "#e4e1e9",
+                        "tertiary-fixed-dim": "#2ae500",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0e0e13",
+                        "primary-container": "#00f3ff",
+                        "on-primary": "#00373a",
+                        "error": "#ffb4ab",
+                        "background": "#131318",
+                        "secondary-container": "#fe00fe",
+                        "on-primary-fixed": "#002022",
+                        "on-secondary-fixed": "#380038",
+                        "on-tertiary-fixed": "#022100",
+                        "surface-bright": "#39383e",
+                        "on-tertiary-fixed-variant": "#095300",
+                        "secondary": "#ffabf3",
+                        "tertiary-container": "#36fd0f",
+                        "on-surface-variant": "#b9cacb",
+                        "on-secondary": "#5b005b",
+                        "on-secondary-fixed-variant": "#810081",
+                        "primary": "#e3fdff",
+                        "surface-container-high": "#2a292f",
+                        "tertiary-fixed": "#79ff5b",
+                        "on-primary-fixed-variant": "#004f53",
+                        "primary-fixed": "#6ff6ff",
+                        "on-secondary-container": "#500050",
+                        "secondary-fixed": "#ffd7f5",
+                        "surface-tint": "#00dce6",
+                        "primary-fixed-dim": "#00dce6",
+                        "tertiary": "#e8ffda",
+                        "secondary-fixed-dim": "#ffabf3",
+                        "surface-container-highest": "#35343a",
+                        "on-background": "#e4e1e9",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#00696f",
+                        "surface": "#131318",
+                        "on-primary-container": "#006b71",
+                        "on-surface": "#e4e1e9",
+                        "inverse-on-surface": "#303036",
+                        "on-tertiary-container": "#107000",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1b1b20",
+                        "surface-dim": "#131318",
+                        "outline-variant": "#3a494b",
+                        "surface-variant": "#35343a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Syne"],
+                        "label-caps": ["Space Mono"],
+                        "display-lg": ["Syne"],
+                        "headline-lg": ["Syne"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.7), inset 0 0 10px rgba(0, 243, 255, 0.4);
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 20px rgba(254, 0, 254, 0.7), inset 0 0 10px rgba(254, 0, 254, 0.4);
+        }
+        .neon-glow-tertiary {
+            box-shadow: 0 0 20px rgba(54, 253, 15, 0.7), inset 0 0 10px rgba(54, 253, 15, 0.4);
+        }
+        .glass-card {
+            background: rgba(14, 14, 19, 0.75);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.5), transparent);
+        }
+        .retro-grid-complex {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+            position: relative;
+        }
+        .retro-grid-complex::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .scanline {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.4), transparent);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 60;
+            animation: scanline 6s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes pulse-intense {
+            0%, 100% { opacity: 0.9; transform: scale(1); filter: brightness(1.2); }
+            50% { opacity: 1; transform: scale(1.25); filter: brightness(2); }
+        }
+        .animate-pulse-intense {
+            animation: pulse-intense 2s infinite ease-in-out;
+        }
+        .brain-hotspot {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid white;
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.9), 0 0 24px rgba(0, 243, 255, 0.4);
+        }
+        .text-glow-secondary {
+            text-shadow: 0 0 12px rgba(254, 0, 254, 0.9);
+        }
+        .cyber-border {
+            clip-path: polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px);
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden min-h-screen">
+<div class="scanline"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-surface-container-lowest/90 backdrop-blur-xl border-b-2 border-primary/40">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-3xl animate-pulse" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h1 class="font-display-lg text-2xl text-primary-container text-glow-primary uppercase tracking-widest">MindSpace</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full border border-secondary-container/50 bg-secondary-container/10 text-secondary-container hover:bg-secondary-container hover:text-white transition-all duration-300">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</button>
+</header>
+<!-- Main Content -->
+<main class="pt-24 pb-32 px-margin-mobile retro-grid-complex min-h-screen flex flex-col items-center">
+<!-- Header Section -->
+<section class="w-full max-w-2xl mb-10 text-center relative z-20">
+<h2 class="font-headline-lg-mobile text-[40px] leading-none mb-4 text-primary text-glow-primary uppercase italic tracking-tighter">EXPLORA TU CEREBRO</h2>
+<p class="font-body-md text-primary/80 font-bold bg-primary/5 py-2 px-4 rounded border-x border-primary/20 inline-block">Interactúa con el biosistema neural para diagnosticar efectos.</p>
+</section>
+<!-- STEAM Brain Interactive Visualization -->
+<section class="relative w-full max-w-lg aspect-square flex items-center justify-center z-20 mb-4">
+<div class="relative w-full h-full flex items-center justify-center p-2 rounded-2xl border-2 border-primary/20 bg-surface-container-lowest shadow-[0_0_40px_rgba(0,0,0,0.8)]">
+<div class="w-full h-full bg-contain bg-no-repeat bg-center relative rounded-xl overflow-hidden" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJhMGmnvQDWs3xPLXWnkNMnvZaufVJdfHC5fFD7NWjJmL2EhElfzLao5HUTuXTixW2TkgutQ9JZ1tNkEuqQy28khzK4Gm0HcSd9xlV3cPdjMQJlmBiIIBagFzuHe2e53OK88s0O1GobsTN0UqnpaNqoi2vmdTTAeOU9QMYSEXk8ktNtkBqLhOUEPU5EUoUzOW9Kt72d1QkLv7_t1eq94FpAX7U4jD84es3b4rrBWZhonno1ZzdrKmP7rGtB8oximavt5RQ0va35C0')">
+<!-- Hotspots -->
+<button class="brain-hotspot absolute top-[25%] left-[60%] w-9 h-9 bg-primary-container rounded-full neon-glow-primary animate-pulse-intense flex items-center justify-center cursor-pointer text-on-primary z-30" onclick="showInfo('cortex')">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+<button class="brain-hotspot absolute top-[55%] left-[45%] w-7 h-7 bg-secondary-container rounded-full neon-glow-secondary animate-pulse-intense flex items-center justify-center cursor-pointer text-white z-30" onclick="showInfo('amygdala')">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button class="brain-hotspot absolute top-[45%] left-[55%] w-8 h-8 bg-tertiary-container rounded-full neon-glow-tertiary animate-pulse-intense flex items-center justify-center cursor-pointer text-on-tertiary z-30" onclick="showInfo('nucleus')">
+<span class="material-symbols-outlined text-base" style="font-variation-settings: 'FILL' 1;">ward</span>
+</button>
+<button class="brain-hotspot absolute top-[58%] left-[38%] w-6 h-6 bg-secondary-container rounded-full neon-glow-secondary animate-pulse-intense flex items-center justify-center cursor-pointer text-white z-30" onclick="showInfo('hippocampus')">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Information Display Area (Technical/Futuristic) -->
+<div class="w-full max-w-2xl mt-8 grid grid-cols-1 gap-4 relative z-20" id="info-panel">
+<div class="col-span-full glass-card p-10 rounded-xl flex flex-col items-center text-center border-2 border-primary-container shadow-[0_0_30px_rgba(0,243,255,0.15)] cyber-border" id="default-info">
+<span class="material-symbols-outlined text-primary-container text-6xl mb-6 animate-bounce drop-shadow-[0_0_10px_rgba(0,243,255,0.8)]">touch_app</span>
+<h3 class="font-headline-lg-mobile text-primary-container mb-4 tracking-[0.2em] uppercase italic text-glow-primary">Interacción Neural</h3>
+<p class="font-body-md text-on-surface-variant max-w-sm font-medium leading-relaxed">
+                    SISTEMA LISTO. SELECCIONE REGIÓN CORTICAL PARA ANALIZAR EL IMPACTO QUÍMICO EN EL POTENCIAL COGNITIVO.
+                </p>
+<div class="mt-6 flex gap-2">
+<span class="w-2 h-2 bg-primary-container rounded-full animate-ping"></span>
+<span class="w-2 h-2 bg-primary-container rounded-full animate-ping [animation-delay:0.2s]"></span>
+<span class="w-2 h-2 bg-primary-container rounded-full animate-ping [animation-delay:0.4s]"></span>
+</div>
+</div>
+<!-- Active Info -->
+<div class="hidden col-span-full glass-card p-8 rounded-xl border-l-[6px] border-primary-container shadow-[0_0_40px_rgba(0,243,255,0.1)] cyber-border" id="active-info">
+<div class="flex justify-between items-center mb-8 pb-4 border-b border-primary/20">
+<div class="flex flex-col">
+<span class="text-[10px] font-label-caps text-primary/60 tracking-[0.3em] mb-1">ANALIZANDO_ZONA</span>
+<h3 class="font-headline-lg-mobile text-primary-container text-glow-primary text-3xl italic" id="info-title">Corteza Prefrontal</h3>
+</div>
+<div class="p-3 bg-primary-container/20 border border-primary-container rounded-lg">
+<span class="material-symbols-outlined text-primary-container text-4xl" id="info-icon">bolt</span>
+</div>
+</div>
+<div class="flex gap-4 mb-8">
+<div class="w-1 bg-gradient-to-b from-primary-container to-transparent opacity-50"></div>
+<p class="font-body-md text-on-surface text-lg leading-relaxed font-medium italic" id="info-text">La zona de control y toma de decisiones. Las sustancias pueden "nublar" este centro, dificultando el juicio crítico.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<span class="bg-primary-container/10 px-5 py-2 rounded text-label-caps text-primary-container font-bold border border-primary-container/40 uppercase tracking-widest shadow-[0_0_10px_rgba(0,243,255,0.2)]">Control de impulsos</span>
+<span class="bg-primary-container/10 px-5 py-2 rounded text-label-caps text-primary-container font-bold border border-primary-container/40 uppercase tracking-widest shadow-[0_0_10px_rgba(0,243,255,0.2)]">Lógica</span>
+</div>
+</div>
+</div>
+<!-- Secondary CTA -->
+<div class="mt-8 grid grid-cols-2 gap-4 w-full max-w-2xl relative z-20">
+<div class="glass-card p-6 rounded-xl flex flex-col gap-4 border-2 border-secondary-container/30 hover:border-secondary-container hover:bg-secondary-container/10 transition-all cursor-pointer group active:scale-95 shadow-[0_0_20px_rgba(254,0,254,0.1)]">
+<div class="w-14 h-14 rounded-lg bg-secondary-container flex items-center justify-center shadow-[0_0_15px_rgba(254,0,254,0.6)]">
+<span class="material-symbols-outlined text-white text-3xl group-hover:rotate-12 transition-transform">auto_stories</span>
+</div>
+<div>
+<p class="font-display-lg text-lg text-secondary-container text-glow-secondary font-bold uppercase italic leading-none mb-1">Aprender más</p>
+<p class="text-[10px] text-white/60 uppercase tracking-[0.2em] font-bold">Protocolos &amp; Guías</p>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl flex flex-col gap-4 border-2 border-primary-container/30 hover:border-primary-container hover:bg-primary-container/10 transition-all cursor-pointer group active:scale-95 shadow-[0_0_20px_rgba(0,243,255,0.1)]">
+<div class="w-14 h-14 rounded-lg bg-primary-container flex items-center justify-center shadow-[0_0_15px_rgba(0,243,255,0.6)]">
+<span class="material-symbols-outlined text-on-primary text-3xl group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">emergency_home</span>
+</div>
+<div>
+<p class="font-display-lg text-lg text-primary-container text-glow-primary font-bold uppercase italic leading-none mb-1">SOS Línea</p>
+<p class="text-[10px] text-white/60 uppercase tracking-[0.2em] font-bold">Ayuda Neural 24/7</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-surface-container-lowest/95 backdrop-blur-3xl border-t-4 border-primary shadow-[0_-15px_50px_rgba(0,0,0,0.8)]">
+<a href="index.html" class="flex flex-col items-center justify-center text-tertiary-container drop-shadow-[0_0_15px_rgba(54,253,15,0.8)] bg-tertiary-container/20 rounded-xl px-6 py-3 transition-all duration-300 border border-tertiary-container/30">
+<span class="material-symbols-outlined scale-125" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-label-caps text-[10px] mt-1 font-black italic tracking-widest">BRAIN</span>
+</a>
+<a href="ciencia.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">movie</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">LEARN</span>
+</a>
+<a href="calma.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">graphic_eq</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">CALMA</span>
+</a>
+<a href="sos.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">emergency</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">SOS</span>
+</a>
+<a href="feedback.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">forum</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">FEEDBACK</span>
+</a>
+</nav>
+<script>
+        const infoData = {
+            cortex: {
+                title: "Corteza Prefrontal",
+                text: "Es el centro de mando del cerebro. Las sustancias pueden interferir con tu capacidad de planificar, resolver problemas y controlar impulsos, especialmente durante la adolescencia.",
+                icon: "bolt",
+                color: "#00f3ff",
+                shadow: "rgba(0, 243, 255, 0.4)"
+            },
+            amygdala: {
+                title: "Amígdala",
+                text: "Controla tus emociones y el estrés. El consumo de sustancias puede hipersensibilizar esta zona, causando que te sientas ansioso o irritable frecuentemente.",
+                icon: "favorite",
+                color: "#fe00fe",
+                shadow: "rgba(254, 0, 254, 0.4)"
+            },
+            nucleus: {
+                title: "Núcleo Accumbens",
+                text: "El centro de recompensa. Las drogas inundan este canal con señales artificiales masivas, lo que puede llevar al cerebro a ignorar los placeres naturales.",
+                icon: "reward",
+                color: "#36fd0f",
+                shadow: "rgba(54, 253, 15, 0.4)"
+            },
+            hippocampus: {
+                title: "Hipocampo",
+                text: "Fundamental para la memoria y el aprendizaje. Ciertas sustancias pueden dañar las neuronas aquí, dificultando la formación de nuevos recuerdos.",
+                icon: "menu_book",
+                color: "#fe00fe",
+                shadow: "rgba(254, 0, 254, 0.4)"
+            }
+        };
+
+        function showInfo(region) {
+            const data = infoData[region];
+            const defaultPanel = document.getElementById('default-info');
+            const activePanel = document.getElementById('active-info');
+            const title = document.getElementById('info-title');
+            const icon = document.getElementById('info-icon');
+            const text = document.getElementById('info-text');
+
+            defaultPanel.classList.add('hidden');
+            activePanel.classList.remove('hidden');
+            
+            title.innerText = data.title;
+            text.innerText = data.text;
+            icon.innerText = data.icon === 'reward' ? 'ward' : data.icon;
+            
+            // Acid visual updates
+            activePanel.style.borderLeftColor = data.color;
+            activePanel.style.boxShadow = `0 0 40px ${data.shadow}`;
+            title.style.color = data.color;
+            title.style.textShadow = `0 0 10px ${data.color}`;
+            icon.parentElement.style.borderColor = data.color;
+            icon.style.color = data.color;
+
+            // Entrance animation
+            activePanel.style.transform = 'translateY(20px)';
+            activePanel.style.opacity = '0';
+            activePanel.style.filter = 'brightness(2)';
+            setTimeout(() => {
+                activePanel.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                activePanel.style.transform = 'translateY(0)';
+                activePanel.style.opacity = '1';
+                activePanel.style.filter = 'brightness(1)';
+            }, 10);
+        }
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

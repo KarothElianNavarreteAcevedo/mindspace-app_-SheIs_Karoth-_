@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>MindSpace - SOS Ayuda Directa</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#849495",
+                    "on-tertiary": "#053900",
+                    "surface-container": "#1f1f25",
+                    "inverse-surface": "#e4e1e9",
+                    "tertiary-fixed-dim": "#2ae500",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#060608",
+                    "primary-container": "#00f3ff",
+                    "on-primary": "#00373a",
+                    "error": "#ffb4ab",
+                    "background": "#08080c",
+                    "secondary-container": "#fe00fe",
+                    "on-primary-fixed": "#002022",
+                    "on-secondary-fixed": "#380038",
+                    "on-tertiary-fixed": "#022100",
+                    "surface-bright": "#39383e",
+                    "on-tertiary-fixed-variant": "#095300",
+                    "secondary": "#fe00fe",
+                    "tertiary-container": "#36fd0f",
+                    "on-surface-variant": "#b9cacb",
+                    "on-secondary": "#5b005b",
+                    "on-secondary-fixed-variant": "#810081",
+                    "primary": "#00f3ff",
+                    "surface-container-high": "#2a292f",
+                    "tertiary-fixed": "#79ff5b",
+                    "on-primary-fixed-variant": "#004f53",
+                    "primary-fixed": "#00f3ff",
+                    "on-secondary-container": "#500050",
+                    "secondary-fixed": "#ff00ff",
+                    "surface-tint": "#00dce6",
+                    "primary-fixed-dim": "#00dce6",
+                    "tertiary": "#e8ffda",
+                    "secondary-fixed-dim": "#ffabf3",
+                    "surface-container-highest": "#35343a",
+                    "on-background": "#ffffff",
+                    "error-container": "#93000a",
+                    "inverse-primary": "#00696f",
+                    "surface": "#0e0e13",
+                    "on-primary-container": "#006b71",
+                    "on-surface": "#ffffff",
+                    "inverse-on-surface": "#303036",
+                    "on-tertiary-container": "#107000",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#111116",
+                    "surface-dim": "#08080c",
+                    "outline-variant": "#3a494b",
+                    "surface-variant": "#35343a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-desktop": "64px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Syne"],
+                    "label-caps": ["Space Mono"],
+                    "display-lg": ["Syne"],
+                    "headline-lg": ["Syne"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                    "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 243, 255, 0.2);
+            border-color: rgba(0, 243, 255, 0.8) !important;
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 40px rgba(254, 0, 254, 0.4), inset 0 0 15px rgba(254, 0, 254, 0.2);
+            border-color: rgba(254, 0, 254, 0.8) !important;
+        }
+        .neon-glow-green {
+            box-shadow: 0 0 30px rgba(42, 229, 0, 1);
+        }
+        .grid-bg {
+            background-color: #08080c;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.08) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .glass-card {
+            background: rgba(14, 14, 19, 0.85);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            backdrop-filter: blur(20px);
+        }
+        .text-neon-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+        }
+        .text-neon-magenta {
+            text-shadow: 0 0 10px rgba(254, 0, 254, 0.6);
+        }
+        body {
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md grid-bg min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-background/90 backdrop-blur-xl border-b border-primary/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h1 class="font-headline-lg-mobile text-[24px] text-primary tracking-tighter text-neon-cyan">MindSpace</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:text-white transition-all active:scale-95">account_circle</button>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center justify-center px-margin-mobile pt-24 pb-32 max-w-lg mx-auto text-center w-full">
+<!-- Header Section -->
+<section class="mb-12">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-4 uppercase tracking-[0.2em] text-neon-cyan">Ayuda Directa</h2>
+<p class="font-body-md text-on-surface-variant font-bold max-w-sm mx-auto leading-tight">
+                No estás solo. Conéctate inmediatamente con profesionales capacitados para apoyarte.
+            </p>
+</section>
+<!-- SOS Action Buttons -->
+<div class="w-full space-y-8">
+<!-- Button 1: Linea 106 -->
+<a class="group relative flex flex-col items-center justify-center p-10 rounded-xl glass-card transition-all duration-300 active:scale-95 neon-glow-primary overflow-hidden" href="tel:106">
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-primary text-6xl mb-4 group-hover:scale-110 transition-transform text-neon-cyan" style="font-variation-settings: 'FILL' 1;">call</span>
+<span class="font-headline-lg-mobile text-2xl text-primary mb-2 text-neon-cyan">Llamar a Línea 106</span>
+<span class="font-label-caps text-label-caps text-on-surface font-bold">01 8000 112 439</span>
+</a>
+<!-- Button 2: WhatsApp -->
+<a class="group relative flex flex-col items-center justify-center p-10 rounded-xl glass-card transition-all duration-300 active:scale-95 neon-glow-secondary overflow-hidden border-secondary/30" href="https://wa.me/573007548933" target="_blank">
+<div class="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-secondary text-6xl mb-4 group-hover:scale-110 transition-transform text-neon-magenta" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-headline-lg-mobile text-2xl text-secondary mb-2 text-neon-magenta">Chat WhatsApp Línea Psicoactiva</span>
+<span class="font-label-caps text-label-caps text-on-surface font-bold">300 754 8933</span>
+</a>
+</div>
+<!-- Privacy & Authority Note -->
+<footer class="mt-14 flex flex-col items-center space-y-6 w-full">
+<div class="glass-card p-5 rounded-lg flex items-start gap-3 text-left w-full border-primary/20 bg-surface-container/40">
+<span class="material-symbols-outlined text-primary text-2xl">verified_user</span>
+<div>
+<p class="font-label-caps text-[11px] text-primary font-bold mb-2 tracking-widest">PRIVACIDAD Y SEGURIDAD</p>
+<p class="text-[14px] leading-relaxed text-on-surface-variant font-medium">
+                        Servicio confidencial y gratuito. Información oficial proporcionada por la <strong>Secretaría de Salud de Bogotá</strong>. Tus datos están protegidos por la Ley de Salud Mental.
+                    </p>
+</div>
+</div>
+<!-- Visual Decoration -->
+<div class="h-[2px] w-48 bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_10px_rgba(0,243,255,0.8)]"></div>
+</footer>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-end px-6 pb-8 pt-4 bg-background/95 backdrop-blur-3xl border-t border-primary/30">
+<!-- Brain -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/80 hover:text-primary transition-colors group mb-1" href="index.html">
+<span class="material-symbols-outlined group-active:scale-110 transition-transform mb-1 text-2xl">neurology</span>
+<span class="font-label-caps text-[10px] uppercase font-bold">Brain</span>
+</a>
+<!-- Learn -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/80 hover:text-primary transition-colors group mb-1" href="ciencia.html">
+<span class="material-symbols-outlined group-active:scale-110 transition-transform mb-1 text-2xl">movie</span>
+<span class="font-label-caps text-[10px] uppercase font-bold">Learn</span>
+</a>
+<!-- Calma -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/80 hover:text-primary transition-colors group mb-1" href="calma.html">
+<span class="material-symbols-outlined group-active:scale-110 transition-transform mb-1 text-2xl">graphic_eq</span>
+<span class="font-label-caps text-[10px] uppercase font-bold">Calma</span>
+</a>
+<!-- SOS (ACTIVE) -->
+<a class="flex flex-col items-center justify-center text-black neon-glow-green bg-tertiary-fixed-dim rounded-full w-16 h-16 mb-2 scale-110 transition-all duration-300 border-2 border-white/40" href="sos.html">
+<span class="material-symbols-outlined text-3xl font-black" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<span class="font-label-caps text-[11px] font-black">SOS</span>
+</a>
+<!-- Feedback -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant/80 hover:text-primary transition-colors group mb-1" href="feedback.html">
+<span class="material-symbols-outlined group-active:scale-110 transition-transform mb-1 text-2xl">forum</span>
+<span class="font-label-caps text-[10px] uppercase font-bold">Feedback</span>
+</a>
+</nav>
+<script>
+        document.querySelectorAll('a').forEach(anchor => {
+            anchor.addEventListener('mousedown', () => {
+                anchor.style.transform = anchor.classList.contains('scale-110') ? 'scale(1.05)' : 'scale(0.92)';
+            });
+            anchor.addEventListener('mouseup', () => {
+                anchor.style.transform = '';
+            });
+            anchor.addEventListener('mouseleave', () => {
+                anchor.style.transform = '';
+            });
+        });
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

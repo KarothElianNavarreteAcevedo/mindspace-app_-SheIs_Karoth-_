@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#131318"/>
+      <stop offset="100%" stop-color="#1f1f25"/>
+    </linearGradient>
+    <linearGradient id="brain" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#00f3ff"/>
+      <stop offset="100%" stop-color="#fe00fe"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="80" fill="url(#bg)"/>
+  <g transform="translate(256,256)">
+    <circle cx="0" cy="0" r="160" fill="none" stroke="#00f3ff" stroke-width="12" opacity="0.3"/>
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#fe00fe" stroke-width="8" opacity="0.2"/>
+    <!-- Brain shape -->
+    <path d="M-80,-80 C-120,-120 -160,-40 -140,20 C-120,80 -60,100 -20,80 C0,70 10,60 0,40 C-10,20 -20,0 -20,-20 C-20,-60 -40,-80 -80,-80Z" fill="url(#brain)" opacity="0.9"/>
+    <path d="M80,-80 C120,-120 160,-40 140,20 C120,80 60,100 20,80 C0,70 -10,60 0,40 C10,20 20,0 20,-20 C20,-60 40,-80 80,-80Z" fill="url(#brain)" opacity="0.9"/>
+    <!-- Center synapse -->
+    <circle cx="0" cy="40" r="12" fill="#00f3ff">
+      <animate attributeName="r" values="8;14;8" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <!-- Neural dots -->
+    <circle cx="-60" cy="-40" r="8" fill="#00f3ff"/>
+    <circle cx="60" cy="-40" r="8" fill="#00f3ff"/>
+    <circle cx="-40" cy="20" r="6" fill="#36fd0f"/>
+    <circle cx="40" cy="20" r="6" fill="#36fd0f"/>
+  </g>
+</svg>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>MindSpace - Frecuencias de Calma</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=Space+Mono:wght@400;700&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #131318;
+            color: #e4e1e9;
+            overflow-x: hidden;
+        }
+
+        .scanline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .grid-background {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 220, 230, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 220, 230, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px);
+            opacity: 0.4;
+        }
+
+        .glass-panel {
+            background: rgba(31, 31, 37, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 220, 230, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 220, 230, 1);
+            box-shadow: 0 0 15px rgba(0, 220, 230, 0.3);
+        }
+
+        .neon-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 220, 230, 0.8);
+        }
+
+        .neon-glow-magenta {
+            text-shadow: 0 0 10px rgba(254, 0, 254, 0.8);
+        }
+
+        .segmented-progress {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .segment {
+            height: 6px;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1px;
+        }
+
+        .segment.active {
+            background: #00dce6;
+            box-shadow: 0 0 8px #00dce6;
+        }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffdad6",
+                        "on-primary-container": "#006b71",
+                        "secondary-fixed": "#ffd7f5",
+                        "on-tertiary-container": "#107000",
+                        "surface-container-lowest": "#0e0e13",
+                        "on-secondary-fixed": "#380038",
+                        "secondary": "#ffabf3",
+                        "tertiary-fixed-dim": "#2ae500",
+                        "secondary-fixed-dim": "#ffabf3",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1b1b20",
+                        "primary-fixed-dim": "#00dce6",
+                        "tertiary-fixed": "#79ff5b",
+                        "surface-bright": "#39383e",
+                        "primary-container": "#00f3ff",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#095300",
+                        "on-primary-fixed-variant": "#004f53",
+                        "primary-fixed": "#6ff6ff",
+                        "surface-dim": "#131318",
+                        "on-tertiary": "#053900",
+                        "on-secondary-fixed-variant": "#810081",
+                        "surface": "#131318",
+                        "on-primary-fixed": "#002022",
+                        "error-container": "#93000a",
+                        "inverse-surface": "#e4e1e9",
+                        "surface-container-highest": "#35343a",
+                        "on-surface-variant": "#b9cacb",
+                        "background": "#131318",
+                        "on-secondary-container": "#500050",
+                        "inverse-primary": "#00696f",
+                        "surface-tint": "#00dce6",
+                        "secondary-container": "#fe00fe",
+                        "surface-container-high": "#2a292f",
+                        "tertiary-container": "#36fd0f",
+                        "on-tertiary-fixed": "#022100",
+                        "outline-variant": "#3a494b",
+                        "outline": "#849495",
+                        "on-background": "#e4e1e9",
+                        "inverse-on-surface": "#303036",
+                        "on-secondary": "#5b005b",
+                        "primary": "#e3fdff",
+                        "on-primary": "#00373a",
+                        "surface-variant": "#35343a",
+                        "on-surface": "#e4e1e9",
+                        "tertiary": "#e8ffda",
+                        "surface-container": "#1f1f25"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "unit": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Space Mono"],
+                        "display-lg": ["Syne"],
+                        "headline-lg-mobile": ["Syne"],
+                        "headline-lg": ["Syne"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen pb-24">
+<div class="scanline-overlay"></div>
+<div class="grid-background"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-background/80 dark:bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_15px_rgba(188,19,254,0.3)]">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">MindSpace</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:text-secondary hover:drop-shadow-[0_0_8px_rgba(57,255,20,0.8)] transition-all duration-300 active:scale-95">settings</button>
+</header>
+<main class="pt-20 px-4 md:px-margin-desktop max-w-container-max mx-auto space-y-12">
+<!-- Hero Title Section -->
+<section class="text-center space-y-4 py-8">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary-fixed-dim neon-glow-cyan">Frecuencias de Calma</h2>
+<p class="text-on-surface-variant font-body-md max-w-2xl mx-auto italic">Terapia sonora para la recuperación y el equilibrio mental.</p>
+</section>
+<!-- Calma por Emoción -->
+<section class="space-y-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<h3 class="font-label-caps text-label-caps text-secondary-fixed">CALMA POR EMOCIÓN</h3>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<button class="glass-panel p-4 flex flex-col items-center justify-center gap-3 text-center active:scale-95 group">
+<span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform">bolt</span>
+<span class="font-label-caps text-[10px] uppercase leading-tight">Ataque de Ansiedad</span>
+</button>
+<button class="glass-panel p-4 flex flex-col items-center justify-center gap-3 text-center active:scale-95 group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">bedtime</span>
+<span class="font-label-caps text-[10px] uppercase leading-tight">No puedo dormir</span>
+</button>
+<button class="glass-panel p-4 flex flex-col items-center justify-center gap-3 text-center active:scale-95 group">
+<span class="material-symbols-outlined text-tertiary-fixed group-hover:scale-110 transition-transform">self_improvement</span>
+<span class="font-label-caps text-[10px] uppercase leading-tight">Estoy estresado</span>
+</button>
+<button class="glass-panel p-4 flex flex-col items-center justify-center gap-3 text-center active:scale-95 group">
+<span class="material-symbols-outlined text-secondary group-hover:scale-110 transition-transform">fitness_center</span>
+<span class="font-label-caps text-[10px] uppercase leading-tight">Necesito fuerza</span>
+</button>
+<button class="glass-panel p-4 flex flex-col items-center justify-center gap-3 text-center border-error/20 bg-error/5 active:scale-95 group col-span-2 md:col-span-1">
+<span class="material-symbols-outlined text-error group-hover:scale-110 transition-transform">heart_broken</span>
+<span class="font-label-caps text-[10px] uppercase leading-tight">Recaí y me siento mal</span>
+</button>
+</div>
+</section>
+<!-- Main Player / Tools Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Herramientas Sonoras (Left & Center) -->
+<div class="lg:col-span-2 space-y-8">
+<section class="glass-panel p-6 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-8xl">graphic_eq</span>
+</div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Reproduciendo Ahora</h3>
+<span class="material-symbols-outlined text-primary-fixed-dim animate-pulse">waves</span>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-8">
+<div class="w-48 h-48 bg-surface-container-high rounded-xl relative group overflow-hidden border border-primary/40 shadow-2xl">
+<img class="w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-700" data-alt="A stylized retro-futuristic digital landscape with neon turquoise geometric shapes and soft magenta fog, cinematic 80s synthwave aesthetic, high fidelity, polished gloss surfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvM56jK2RsBn0YmJsZGqgqDxiPrbIhagbVzAmQno65EEZ3sBmpRYzer7EjFtkWrM3Hfa5vHbcooEpbsXZFG8KAXjU2WccSX4-ADNpoMtIUsTnlhKTTaa4gFpROpd6Fq8-UPxEjKaBoCiBfWfM-ns7SSIwVjWJ_iQBPubQ8hIsPNog__2lnC5wVQy6F247jNLhJ4PPhND-b5fLW8BHEoTQaLmKLCkFeAsq4e4AqIffpAsboGSqpHsTZgQj71q6VMH6qgzYA7nVbQuA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<span class="bg-primary/20 text-primary text-[10px] px-2 py-1 rounded font-label-caps">LIVE</span>
+</div>
+</div>
+<div class="flex-1 w-full space-y-6">
+<div>
+<h4 class="text-2xl font-bold neon-glow-cyan">Ondas Delta - Alivio Profundo</h4>
+<p class="text-on-surface-variant font-label-caps text-xs">FRECUENCIAS BINAURALES • 0.5Hz - 4Hz</p>
+</div>
+<div class="space-y-2">
+<div class="segmented-progress">
+<div class="segment active"></div>
+<div class="segment active"></div>
+<div class="segment active"></div>
+<div class="segment active"></div>
+<div class="segment active"></div>
+<div class="segment active"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+<div class="segment"></div>
+</div>
+<div class="flex justify-between text-[10px] font-label-caps text-on-surface-variant">
+<span>05:32</span>
+<span>15:00</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-3xl hover:text-primary-fixed-dim transition-colors">skip_previous</button>
+<button class="w-16 h-16 bg-primary-container rounded-full flex items-center justify-center text-on-primary-container shadow-[0_0_20px_rgba(0,220,230,0.6)] active:scale-90 transition-all">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button class="material-symbols-outlined text-3xl hover:text-primary-fixed-dim transition-colors">skip_next</button>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" title="Timer">timer</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary" title="Download">download</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-3 gap-2">
+<button class="py-2 px-4 rounded-full border border-primary/30 text-[10px] font-label-caps hover:bg-primary/10 transition-colors">5 MIN</button>
+<button class="py-2 px-4 rounded-full border border-primary bg-primary/20 text-[10px] font-label-caps text-primary shadow-[0_0_10px_rgba(0,220,230,0.3)]">10 MIN</button>
+<button class="py-2 px-4 rounded-full border border-primary/30 text-[10px] font-label-caps hover:bg-primary/10 transition-colors">20 MIN</button>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-panel p-5 rounded-xl space-y-4">
+<h4 class="font-label-caps text-tertiary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">record_voice_over</span> MEDITACIONES GUIADAS
+                        </h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded group cursor-pointer hover:bg-surface-container transition-colors">
+<span class="font-medium">Manejo de Impulsos</span>
+<span class="text-xs text-on-surface-variant">5 min</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded group cursor-pointer hover:bg-surface-container transition-colors">
+<span class="font-medium">Compasión Propia</span>
+<span class="text-xs text-on-surface-variant">8 min</span>
+</div>
+</div>
+</div>
+<div class="glass-panel p-5 rounded-xl space-y-4">
+<h4 class="font-label-caps text-secondary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span> AFIRMACIONES
+                        </h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded group cursor-pointer hover:bg-surface-container transition-colors">
+<span class="font-medium">Poder sobre la adicción</span>
+<span class="material-symbols-outlined text-secondary-container text-sm">play_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low rounded group cursor-pointer hover:bg-surface-container transition-colors">
+<span class="font-medium">Paz en la tormenta</span>
+<span class="material-symbols-outlined text-secondary-container text-sm">play_circle</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container/10 border-l-4 border-secondary p-4 rounded-r-lg flex gap-4 items-start">
+<span class="material-symbols-outlined text-secondary">headphones</span>
+<div>
+<p class="font-bold text-secondary">Aviso importante</p>
+<p class="text-sm opacity-80">Para obtener los beneficios de las Frecuencias Binaurales, se recomienda el uso de auriculares estéreo.</p>
+</div>
+</div>
+</div>
+<!-- Mi Mezcla Personal (Right) -->
+<aside class="space-y-8">
+<section class="glass-panel p-6 rounded-xl border-secondary/40 shadow-[0_0_20px_rgba(254,0,254,0.1)]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-label-caps text-secondary neon-glow-magenta">MI MEZCLA</h3>
+<button class="material-symbols-outlined text-secondary text-sm">refresh</button>
+</div>
+<div class="space-y-8">
+<!-- Sound Sliders -->
+<div class="space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-label-caps">
+<span>Lluvia</span>
+<span class="text-secondary">75%</span>
+</div>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary shadow-[0_0_10px_rgba(254,0,254,0.5)]" type="range"/>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-label-caps">
+<span>Piano</span>
+<span class="text-secondary">40%</span>
+</div>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-label-caps">
+<span>Voz Guía</span>
+<span class="text-secondary">100%</span>
+</div>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
+</div>
+</div>
+<div class="pt-4 border-t border-surface-container-highest">
+<button class="w-full py-3 bg-secondary-container text-on-secondary-container font-label-caps rounded-xl shadow-[0_0_15px_rgba(254,0,254,0.4)] active:scale-95 transition-all">
+                                GUARDAR MEZCLA
+                            </button>
+</div>
+</div>
+</section>
+<!-- Diario de Sonido -->
+<section class="glass-panel p-6 rounded-xl">
+<h3 class="font-label-caps text-tertiary-fixed mb-4">DIARIO DE SONIDO</h3>
+<p class="text-sm mb-4">¿Cómo te sientes después de escuchar?</p>
+<div class="flex justify-between gap-2">
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-lg">sentiment_dissatisfied</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-lg">sentiment_neutral</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors border border-primary/40 shadow-[0_0_8px_rgba(0,220,230,0.2)]">
+<span class="material-symbols-outlined text-lg text-primary">sentiment_satisfied</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-lg">sentiment_very_satisfied</span>
+</button>
+</div>
+<textarea class="w-full mt-4 bg-surface-container-low border border-outline/20 rounded-lg p-3 text-sm focus:border-primary/50 focus:ring-0 placeholder:text-on-surface-variant/30" placeholder="Escribe tu reflexión..." rows="3"></textarea>
+</section>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface-container-lowest/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl border-t-2 border-primary/40 shadow-[0_-4px_20px_rgba(188,19,254,0.2)] rounded-t-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="index.html">
+<span class="material-symbols-outlined">neurology</span>
+<span class="font-label-caps text-[10px] mt-1">Brain</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="ciencia.html">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-label-caps text-[10px] mt-1">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary drop-shadow-[0_0_12px_rgba(42,229,0,0.9)] bg-secondary-container/10 rounded-xl px-4 py-1 active:scale-110 duration-200 ease-out" href="calma.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+<span class="font-label-caps text-[10px] mt-1">Calma</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="sos.html">
+<span class="material-symbols-outlined">emergency</span>
+<span class="font-label-caps text-[10px] mt-1">SOS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="feedback.html">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-caps text-[10px] mt-1">Feedback</span>
+</a>
+</nav>
+<script>
+        // Simple slider interactivity
+        const ranges = document.querySelectorAll('input[type="range"]');
+        ranges.forEach(range => {
+            range.addEventListener('input', (e) => {
+                const value = e.target.value;
+                const label = e.target.parentElement.querySelector('.text-secondary');
+                if(label) label.textContent = value + '%';
+            });
+        });
+
+        // Toggle Active State for Timers
+        const timerButtons = document.querySelectorAll('.grid-cols-3 button');
+        timerButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                timerButtons.forEach(b => {
+                    b.classList.remove('bg-primary/20', 'text-primary', 'border-primary', 'shadow-[0_0_10px_rgba(0,220,230,0.3)]');
+                    b.classList.add('border-primary/30');
+                });
+                btn.classList.add('bg-primary/20', 'text-primary', 'border-primary', 'shadow-[0_0_10px_rgba(0,220,230,0.3)]');
+                btn.classList.remove('border-primary/30');
+            });
+        });
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

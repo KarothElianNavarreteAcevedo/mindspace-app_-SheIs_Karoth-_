@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<title>MindSpace - Tu Progreso</title>
+<style>
+        body {
+            background-color: #131318;
+            color: #e4e1e9;
+            overflow-x: hidden;
+        }
+
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            perspective: 1000px;
+            transform-origin: center bottom;
+        }
+
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.1) 50%
+            );
+            background-size: 100% 4px;
+            z-index: 100;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .neon-glow-primary {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.8), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .neon-glow-secondary {
+            text-shadow: 0 0 10px rgba(254, 0, 254, 0.8), 0 0 20px rgba(254, 0, 254, 0.4);
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(31, 31, 37, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .glass-panel:hover {
+            border: 1px solid rgba(0, 243, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
+        }
+
+        .segmented-progress-bar {
+            display: flex;
+            gap: 4px;
+            height: 12px;
+        }
+
+        .segment {
+            flex: 1;
+            background: rgba(228, 225, 233, 0.1);
+            border-radius: 2px;
+        }
+
+        .segment.active-primary { background: #00f3ff; box-shadow: 0 0 8px #00f3ff; }
+        .segment.active-secondary { background: #fe00fe; box-shadow: 0 0 8px #fe00fe; }
+        .segment.active-tertiary { background: #36fd0f; box-shadow: 0 0 8px #36fd0f; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#00373a",
+                      "inverse-primary": "#00696f",
+                      "tertiary-container": "#36fd0f",
+                      "surface-dim": "#131318",
+                      "on-secondary-fixed": "#380038",
+                      "tertiary": "#e8ffda",
+                      "on-primary-fixed": "#002022",
+                      "surface-container-highest": "#35343a",
+                      "secondary-fixed": "#ffd7f5",
+                      "secondary-container": "#fe00fe",
+                      "on-error-container": "#ffdad6",
+                      "surface": "#131318",
+                      "on-surface-variant": "#b9cacb",
+                      "surface-bright": "#39383e",
+                      "primary-container": "#00f3ff",
+                      "on-tertiary-container": "#107000",
+                      "error-container": "#93000a",
+                      "primary-fixed": "#6ff6ff",
+                      "on-background": "#e4e1e9",
+                      "secondary": "#ffabf3",
+                      "inverse-surface": "#e4e1e9",
+                      "secondary-fixed-dim": "#ffabf3",
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#303036",
+                      "surface-variant": "#35343a",
+                      "surface-container": "#1f1f25",
+                      "on-error": "#690005",
+                      "on-tertiary-fixed": "#022100",
+                      "surface-container-lowest": "#0e0e13",
+                      "on-secondary": "#5b005b",
+                      "primary-fixed-dim": "#00dce6",
+                      "outline-variant": "#3a494b",
+                      "surface-tint": "#00dce6",
+                      "tertiary-fixed": "#79ff5b",
+                      "on-tertiary-fixed-variant": "#095300",
+                      "on-secondary-container": "#500050",
+                      "surface-container-low": "#1b1b20",
+                      "background": "#131318",
+                      "on-primary-fixed-variant": "#004f53",
+                      "on-surface": "#e4e1e9",
+                      "on-primary-container": "#006b71",
+                      "surface-container-high": "#2a292f",
+                      "on-tertiary": "#053900",
+                      "tertiary-fixed-dim": "#2ae500",
+                      "outline": "#849495",
+                      "on-secondary-fixed-variant": "#810081",
+                      "primary": "#e3fdff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "margin-desktop": "64px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Syne"],
+                      "display-lg": ["Syne"],
+                      "headline-lg-mobile": ["Syne"],
+                      "label-caps": ["Space Mono"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background selection:bg-primary-container selection:text-on-primary-container">
+<div class="grid-background"></div>
+<div class="scanlines"></div>
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-background/80 dark:bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_15px_rgba(188,19,254,0.3)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary font-display-lg-mobile text-display-lg-mobile drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">psychology</span>
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">MindSpace</span>
+</div>
+<div class="hidden md:flex gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-all" href="index.html">PROGRAMAS</a>
+<a class="font-label-caps text-label-caps text-primary drop-shadow-[0_0_8px_rgba(0,243,255,0.6)]" href="progreso.html">PROGRESO</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-secondary transition-all" href="index.html">RECURSOS</a>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">account_circle</button>
+</header>
+<main class="pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
+<div class="mb-12 text-center md:text-left">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-2 tracking-tighter">
+                TU PROGRESO
+            </h1>
+<p class="font-label-caps text-label-caps text-secondary uppercase tracking-[0.3em]">Estado de evolución neuronal</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<div class="lg:col-span-8 glass-panel rounded-xl p-8 flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-10">
+
+</div>
+<div class="relative z-10 text-center">
+<div class="font-display-lg text-display-lg md:text-[120px] leading-none mb-4 neon-glow-primary text-primary-container">12</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Días en Libertad</h2>
+<div class="mt-8 flex gap-4">
+<button class="px-6 py-3 bg-secondary-container text-on-secondary-fixed font-label-caps text-label-caps rounded-full shadow-[0_0_15px_rgba(254,0,254,0.5)] active:scale-95 transition-all">
+                            LOG DE HOY
+                        </button>
+<button class="px-6 py-3 border border-primary/50 text-primary font-label-caps text-label-caps rounded-full hover:bg-primary/10 transition-all">
+                            SOS INSTANTE
+                        </button>
+</div>
+</div>
+</div>
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<div class="glass-panel rounded-xl p-6 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SALUD RECUPERADA</span>
+<span class="material-symbols-outlined text-tertiary-fixed-dim">favorite</span>
+</div>
+<div class="mb-2 flex items-baseline gap-2">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary-fixed-dim">84%</span>
+<span class="text-xs text-on-surface-variant font-label-caps">NIVEL OPTIMIZADO</span>
+</div>
+<div class="segmented-progress-bar">
+<div class="segment active-tertiary"></div>
+<div class="segment active-tertiary"></div>
+<div class="segment active-tertiary"></div>
+<div class="segment active-tertiary"></div>
+<div class="segment active-tertiary"></div>
+<div class="segment active-tertiary"></div>
+<div class="segment active-tertiary"></div>
+<div class="segment"></div>
+</div>
+</div>
+<div class="glass-panel rounded-xl p-6 flex flex-col justify-between border-secondary/20">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">AHORRO ACUMULADO</span>
+<span class="material-symbols-outlined text-secondary">payments</span>
+</div>
+<div class="mb-2 flex items-baseline gap-2">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-secondary neon-glow-secondary">$420.00</span>
+<span class="text-xs text-on-surface-variant font-label-caps">USD</span>
+</div>
+<p class="text-xs text-on-surface-variant/70 italic">Equivale a 3 sesiones de neuro-entrenamiento.</p>
+</div>
+</div>
+<div class="lg:col-span-12 mt-8">
+<h3 class="font-label-caps text-label-caps mb-6 flex items-center gap-2">
+<span class="w-12 h-px bg-primary/30"></span>
+                    LOGROS DEL SISTEMA
+                    <span class="w-12 h-px bg-primary/30"></span>
+</h3>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+<div class="glass-panel aspect-square rounded-xl flex flex-col items-center justify-center p-4 group cursor-pointer hover:bg-primary-container/5">
+<div class="w-16 h-16 rounded-full border-2 border-primary-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(0,243,255,0.4)]">
+<span class="material-symbols-outlined text-3xl text-primary-container" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<span class="font-label-caps text-[10px] text-primary-container mb-1">COMPLETADO</span>
+<span class="font-body-md text-xs font-bold text-center">GÉNESIS: 1 DÍA</span>
+</div>
+<div class="glass-panel aspect-square rounded-xl flex flex-col items-center justify-center p-4 group cursor-pointer hover:bg-secondary-container/5">
+<div class="w-16 h-16 rounded-full border-2 border-secondary-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(254,0,254,0.4)]">
+<span class="material-symbols-outlined text-3xl text-secondary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="font-label-caps text-[10px] text-secondary-container mb-1">COMPLETADO</span>
+<span class="font-body-md text-xs font-bold text-center">7 DÍAS RADIANTES</span>
+</div>
+<div class="glass-panel aspect-square rounded-xl flex flex-col items-center justify-center p-4 relative border-tertiary-fixed-dim/40 overflow-hidden">
+<div class="absolute inset-0 bg-tertiary-fixed-dim/5 animate-pulse"></div>
+<div class="w-16 h-16 rounded-full border-2 border-dashed border-tertiary-fixed-dim flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-3xl text-tertiary-fixed-dim/50">lock_open</span>
+</div>
+<span class="font-label-caps text-[10px] text-tertiary-fixed-dim mb-1">EN PROCESO</span>
+<span class="font-body-md text-xs font-bold text-center">EL DESPERTAR: 15 DÍAS</span>
+</div>
+<div class="glass-panel aspect-square rounded-xl flex flex-col items-center justify-center p-4 opacity-40 border-dashed">
+<div class="w-16 h-16 rounded-full border border-on-surface-variant flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-3xl text-on-surface-variant">lock</span>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant mb-1">BLOQUEADO</span>
+<span class="font-body-md text-xs font-bold text-center">30 DÍAS ÓRBITA</span>
+</div>
+<div class="glass-panel aspect-square rounded-xl flex flex-col items-center justify-center p-4 opacity-40 border-dashed">
+<div class="w-16 h-16 rounded-full border border-on-surface-variant flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-3xl text-on-surface-variant">lock</span>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant mb-1">BLOQUEADO</span>
+<span class="font-body-md text-xs font-bold text-center">CENTURIÓN</span>
+</div>
+</div>
+</div>
+<div class="lg:col-span-12 glass-panel rounded-xl p-8 overflow-hidden relative min-h-[300px]">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 relative z-10">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile">Mapa de Vitalidad</h3>
+<p class="font-body-md text-on-surface-variant">Niveles de dopamina y serotonina proyectados a 30 días.</p>
+</div>
+<div class="flex gap-2 mt-4 md:mt-0">
+<span class="flex items-center gap-2 text-[10px] font-label-caps text-primary">
+<span class="w-2 h-2 bg-primary rounded-full shadow-[0_0_5px_#00f3ff]"></span> DOPAMINA
+                        </span>
+<span class="flex items-center gap-2 text-[10px] font-label-caps text-secondary">
+<span class="w-2 h-2 bg-secondary rounded-full shadow-[0_0_5px_#fe00fe]"></span> SEROTONINA
+                        </span>
+</div>
+</div>
+<div class="h-48 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 200">
+<path class="drop-shadow-[0_0_10px_#00f3ff]" d="M0,180 Q100,160 200,140 T400,100 T600,60 T800,40 T1000,20" fill="none" stroke="#00f3ff" stroke-width="4"></path>
+<path class="drop-shadow-[0_0_8px_#fe00fe] opacity-70" d="M0,150 Q150,130 300,110 T600,90 T1000,70" fill="none" stroke="#fe00fe" stroke-dasharray="10 5" stroke-width="3"></path>
+<circle class="animate-ping" cx="400" cy="100" fill="#00f3ff" r="6"></circle>
+<circle cx="400" cy="100" fill="#00f3ff" r="4"></circle>
+</svg>
+<div class="absolute bottom-0 left-0 w-full flex justify-between font-label-caps text-[10px] text-on-surface-variant pt-4 border-t border-on-surface-variant/10">
+<span>DÍA 1</span>
+<span>DÍA 7</span>
+<span>DÍA 14 (HOY)</span>
+<span>DÍA 21</span>
+<span>DÍA 30</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-surface-container-lowest/95 backdrop-blur-3xl border-t-4 border-primary shadow-[0_-15px_50px_rgba(0,0,0,0.8)]">
+<a href="index.html" class="flex flex-col items-center justify-center text-tertiary-container drop-shadow-[0_0_15px_rgba(54,253,15,0.8)] bg-tertiary-container/20 rounded-xl px-6 py-3 transition-all duration-300 border border-tertiary-container/30">
+<span class="material-symbols-outlined scale-125" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-label-caps text-[10px] mt-1 font-black italic tracking-widest">BRAIN</span>
+</a>
+<a href="ciencia.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">movie</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">LEARN</span>
+</a>
+<a href="calma.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">graphic_eq</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">CALMA</span>
+</a>
+<a href="sos.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">emergency</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">SOS</span>
+</a>
+<a href="feedback.html" class="flex flex-col items-center justify-center text-on-surface-variant/70 hover:text-primary transition-colors px-4 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">forum</span>
+<span class="font-label-caps text-[10px] mt-1 tracking-widest">FEEDBACK</span>
+</a>
+</nav>
+<script>
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        const counter = document.querySelector('.neon-glow-primary');
+        let count = 0;
+        const target = parseInt(counter.innerText);
+        const interval = setInterval(() => {
+            if (count < target) {
+                count++;
+                counter.innerText = count;
+            } else {
+                clearInterval(interval);
+            }
+        }, 100);
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

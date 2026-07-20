@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>MindSpace - Misiones y Recompensas</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Inter:wght@400;600&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-low": "#1b1b20",
+                    "on-primary": "#00373a",
+                    "outline": "#849495",
+                    "on-background": "#e4e1e9",
+                    "secondary-fixed-dim": "#ffabf3",
+                    "tertiary-container": "#36fd0f",
+                    "surface-bright": "#39383e",
+                    "on-surface": "#e4e1e9",
+                    "primary": "#e3fdff",
+                    "on-tertiary-fixed": "#022100",
+                    "tertiary-fixed": "#79ff5b",
+                    "surface-container": "#1f1f25",
+                    "on-primary-fixed-variant": "#004f53",
+                    "primary-fixed": "#6ff6ff",
+                    "surface-container-high": "#2a292f",
+                    "on-primary-fixed": "#002022",
+                    "primary-fixed-dim": "#00dce6",
+                    "tertiary": "#e8ffda",
+                    "on-error": "#690005",
+                    "secondary": "#ffabf3",
+                    "on-tertiary": "#053900",
+                    "on-tertiary-fixed-variant": "#095300",
+                    "primary-container": "#00f3ff",
+                    "on-error-container": "#ffdad6",
+                    "inverse-surface": "#e4e1e9",
+                    "background": "#131318",
+                    "on-secondary-container": "#500050",
+                    "tertiary-fixed-dim": "#2ae500",
+                    "surface-tint": "#00dce6",
+                    "surface-container-highest": "#35343a",
+                    "secondary-fixed": "#ffd7f5",
+                    "on-surface-variant": "#b9cacb",
+                    "on-secondary-fixed-variant": "#810081",
+                    "on-secondary-fixed": "#380038",
+                    "surface-container-lowest": "#0e0e13",
+                    "on-primary-container": "#006b71",
+                    "error-container": "#93000a",
+                    "outline-variant": "#3a494b",
+                    "surface-dim": "#131318",
+                    "secondary-container": "#fe00fe",
+                    "inverse-primary": "#00696f",
+                    "surface-variant": "#35343a",
+                    "surface": "#131318",
+                    "on-tertiary-container": "#107000",
+                    "error": "#ffb4ab",
+                    "on-secondary": "#5b005b",
+                    "inverse-on-surface": "#303036"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "container-max": "1280px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Syne"],
+                    "headline-lg": ["Syne"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Space Mono"],
+                    "display-lg": ["Syne"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                    "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #131318;
+            color: #e4e1e9;
+            overflow-x: hidden;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(to right, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 2px 100%;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+        }
+        .retro-grid {
+            background-image: 
+                linear-gradient(to right, rgba(227, 253, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(227, 253, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            perspective: 1000px;
+            transform: rotateX(20deg);
+            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+        }
+        .glass-panel {
+            background: rgba(27, 27, 32, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(227, 253, 255, 0.1);
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 15px rgba(0, 220, 230, 0.4);
+            border: 1px solid rgba(0, 220, 230, 0.8);
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 15px rgba(254, 0, 254, 0.4);
+            border: 1px solid rgba(254, 0, 254, 0.8);
+        }
+        .neon-text-primary {
+            text-shadow: 0 0 8px rgba(0, 220, 230, 0.8);
+        }
+        .neon-text-secondary {
+            text-shadow: 0 0 8px rgba(254, 0, 254, 0.8);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .stat-bar-fill {
+            transition: width 1s ease-out;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md antialiased">
+<div class="scanline"></div>
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-background/80 dark:bg-background/80 backdrop-blur-md border-b border-primary/30 shadow-[0_0_15px_rgba(188,19,254,0.3)]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary font-display-lg-mobile text-display-lg-mobile drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">psychology</span>
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-primary drop-shadow-[0_0_10px_rgba(188,19,254,0.8)]">MindSpace</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 glass-panel px-3 py-1 rounded-full border-secondary/40">
+<span class="material-symbols-outlined text-secondary scale-75" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+<span class="font-label-caps text-label-caps text-secondary">2,450</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-secondary transition-all">notifications</span>
+</div>
+</header>
+<main class="relative pt-24 pb-32 min-h-screen">
+<!-- Background Grid -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+<div class="retro-grid absolute inset-0"></div>
+</div>
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop space-y-12">
+<!-- Section: TU AVATAR -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/20 blur-3xl opacity-30 rounded-full animate-pulse"></div>
+<div class="glass-panel p-8 rounded-full aspect-square flex items-center justify-center relative overflow-hidden neon-glow-primary border-primary/40">
+<img class="w-full h-full object-contain drop-shadow-[0_0_20px_rgba(0,220,230,0.6)]" data-alt="A futuristic, sleek 3D humanoid avatar with translucent glowing blue skin, wearing neon magenta geometric accessories. The character stands in a confident pose within a high-tech retrowave laboratory, illuminated by bright cyan and pink volumetric lighting. The visual style is high-fidelity digital art with subtle chrome reflections and a deep void background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjNq-fKDur2OObElDJ8IXVRMy3G_746T2PLpp5zUNT6u_CfgDWPeCZcwpocg6YAtS-rlEwSwpA_fCWh6BTG9iSeiQdV6hu5Hu_aB01fw5r3RlobJj5U3PBwhtrYvZ9l_NNGP9ZsjJJDL5-EjdAmL6y82YYFcDj6s10H5F_HwQWHucoXYNPVX5K4jPHAXGk4J_OTFWnpg3dUKV4yaGbhf2E2-6Pu17pncPgrAEiz6rlVY0DNHnERfkmwxObQnMbPK2S_buJiQlEVoE"/>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2">
+<span class="font-label-caps text-label-caps bg-primary text-on-primary px-4 py-1 rounded-full shadow-[0_0_10px_rgba(0,220,230,1)] uppercase">Nivel 14: Visionario</span>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg neon-text-primary">TU AVATAR</h2>
+<p class="text-on-surface-variant max-w-md">Tu mente ha evolucionado. Cada hábito saludable moldea tu forma digital en el vacío de MindSpace.</p>
+<div class="space-y-4">
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-primary uppercase">Dopamina Sana</span>
+<span class="text-primary font-label-caps text-label-caps">85%</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden border border-primary/20">
+<div class="stat-bar-fill h-full bg-gradient-to-r from-primary to-primary-container" style="width: 85%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Serenidad</span>
+<span class="text-secondary font-label-caps text-label-caps">62%</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden border border-secondary/20">
+<div class="stat-bar-fill h-full bg-gradient-to-r from-secondary to-secondary-container" style="width: 62%"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-tertiary-fixed-dim uppercase">Resiliencia</span>
+<span class="text-tertiary-fixed-dim font-label-caps text-label-caps">40%</span>
+</div>
+<div class="h-3 bg-surface-container-highest rounded-full overflow-hidden border border-tertiary/20">
+<div class="stat-bar-fill h-full bg-gradient-to-r from-tertiary-fixed-dim to-tertiary" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: RETO DEL DÍA -->
+<section>
+<div class="glass-panel p-6 md:p-10 rounded-xl relative overflow-hidden border-tertiary/30 neon-glow-secondary">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">brush</span>
+</div>
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">star</span>
+<span class="font-label-caps text-label-caps text-secondary">RETO DEL DÍA</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Reto Creativo: Dibuja cómo te sientes</h3>
+<p class="text-on-surface-variant max-w-2xl">Libera tu mente a través del trazo. No busques la perfección, busca la expresión. Completar este reto otorga 200 Monedas de Logro.</p>
+<button class="bg-gradient-to-r from-secondary to-secondary-container text-on-secondary px-8 py-3 rounded-full font-label-caps text-label-caps hover:scale-105 transition-all shadow-[0_0_20px_rgba(254,0,254,0.4)]">COMENZAR RETO</button>
+</div>
+</div>
+</section>
+<!-- Section: LOGROS RECIENTES -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant tracking-widest uppercase">Logros Recientes</h3>
+<a class="text-primary font-label-caps text-label-caps hover:underline" href="#">Ver Todo</a>
+</div>
+<div class="flex gap-6 overflow-x-auto hide-scrollbar pb-4 -mx-margin-mobile px-margin-mobile">
+<!-- Badge 1 -->
+<div class="min-w-[140px] flex flex-col items-center gap-3 group">
+<div class="w-24 h-24 rounded-full glass-panel border-primary/50 flex items-center justify-center neon-glow-primary group-hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings: 'FILL' 1;">wb_sunny</span>
+</div>
+<span class="font-label-caps text-[10px] text-center text-on-surface">7 Días Radiantes</span>
+</div>
+<!-- Badge 2 -->
+<div class="min-w-[140px] flex flex-col items-center gap-3 group">
+<div class="w-24 h-24 rounded-full glass-panel border-secondary/50 flex items-center justify-center neon-glow-secondary group-hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-secondary" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+</div>
+<span class="font-label-caps text-[10px] text-center text-on-surface">Cazador de Pensamientos</span>
+</div>
+<!-- Badge 3 -->
+<div class="min-w-[140px] flex flex-col items-center gap-3 group">
+<div class="w-24 h-24 rounded-full glass-panel border-tertiary/50 flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer" style="box-shadow: 0 0 15px rgba(54, 253, 15, 0.4);">
+<span class="material-symbols-outlined text-4xl text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">self_improvement</span>
+</div>
+<span class="font-label-caps text-[10px] text-center text-on-surface">Monje de Silencio</span>
+</div>
+<!-- Badge 4 -->
+<div class="min-w-[140px] flex flex-col items-center gap-3 group opacity-50">
+<div class="w-24 h-24 rounded-full glass-panel border-outline/20 flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-outline">lock</span>
+</div>
+<span class="font-label-caps text-[10px] text-center text-outline">???</span>
+</div>
+</div>
+</section>
+<!-- Section: RECOMPENSAS -->
+<section class="space-y-6">
+<div class="flex items-center gap-4">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface uppercase tracking-tight">Recompensas</h3>
+<div class="h-[1px] flex-grow bg-gradient-to-r from-primary/50 to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Reward Item 1 -->
+<div class="glass-panel rounded-xl overflow-hidden group hover:neon-glow-primary transition-all border-primary/20">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="A cinematic retrowave digital background featuring a glowing grid horizon, a giant synthwave sun in the background, and neon purple mountain silhouettes. High contrast, vaporwave color palette of pink, cyan, and deep purple with retro scanline textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBBLlPm7rRIOaOOm81jD9KIeR0ZW2mne_xYtJR2jAQ_1A6hOlAER0Yf5i4OMFJNOO5mxAEq0RLt4ckOOxnhSC7kV3aDMuDe1H0lp4y1SwQCUWOaEhXcH0HgZPTj6gbP54FtXLJ2hV7GT0WaROYQm-iut_QT5kiRnTTrDePwTIsKAXZLnZlwmbaJ9aUGpkzaa1gqoUt5t-9cgM18BZM8fSVYmyJ1J7WV65JQGaCry_P16f8BRDUxxnr24GWr_rbNEpqKt7eD_Ql_nU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+</div>
+<div class="p-6 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-lg-mobile text-body-md text-on-surface font-bold">Pack Fondos Neón</h4>
+<span class="font-label-caps text-label-caps text-primary bg-primary/10 px-2 py-1 rounded">FONDO</span>
+</div>
+<p class="text-sm text-on-surface-variant">Personaliza tu interfaz con atmósferas de los 80.</p>
+<button class="w-full flex items-center justify-center gap-2 border border-primary/40 py-2 rounded font-label-caps text-[12px] text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined scale-75" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                                500 MONEDAS
+                            </button>
+</div>
+</div>
+<!-- Reward Item 2 -->
+<div class="glass-panel rounded-xl overflow-hidden group hover:neon-glow-secondary transition-all border-secondary/20">
+<div class="h-48 relative bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-secondary animate-pulse">equalizer</span>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+</div>
+<div class="p-6 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-lg-mobile text-body-md text-on-surface font-bold">Frecuencias Alpha</h4>
+<span class="font-label-caps text-label-caps text-secondary bg-secondary/10 px-2 py-1 rounded">AUDIO</span>
+</div>
+<p class="text-sm text-on-surface-variant">Sonidos binaurales para potenciar tu concentración.</p>
+<button class="w-full flex items-center justify-center gap-2 border border-secondary/40 py-2 rounded font-label-caps text-[12px] text-secondary hover:bg-secondary/20 transition-all">
+<span class="material-symbols-outlined scale-75" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                                800 MONEDAS
+                            </button>
+</div>
+</div>
+<!-- Reward Item 3 -->
+<div class="glass-panel rounded-xl overflow-hidden group hover:neon-glow-primary transition-all border-primary/20">
+<div class="h-48 relative">
+<img class="w-full h-full object-cover" data-alt="Close-up of a futuristic chrome cybernetic hand holding a glowing neon blue orb. The style is hyper-detailed 3D render with intense bloom effects, iridescent surfaces, and a dark, moody retrowave studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuARZGf9xwOHIKZSB-Tc8j2AJn-RCdZqISQQcR3Q5Y8B9xLmcgRethWvJtIKknF3xz65DzVukSLOxvrl7SiokkQx7_mJ9CdHt7rP5Pgvw0SLxjX5fWQEuuzaxlaWpwuCBMPw_B8GeXHXwlhZg4PUSunjjTnaa68MbACab_CqPeuCuMndZDDMHoQo6GmraSHBwaz6OWF9rpnjDXXdEJPo_OIynGS9LYAqjNKSSsIp82OKBdyVRjhlhozu91RIW-BiZ9mrqj0o5GTMQTQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+</div>
+<div class="p-6 space-y-3">
+<div class="flex justify-between items-start">
+<h4 class="font-headline-lg-mobile text-body-md text-on-surface font-bold">Skin: Cromo Líquido</h4>
+<span class="font-label-caps text-label-caps text-primary bg-primary/10 px-2 py-1 rounded">AVATAR</span>
+</div>
+<p class="text-sm text-on-surface-variant">Un acabado metálico que refleja la luz de tus logros.</p>
+<button class="w-full flex items-center justify-center gap-2 border border-primary/40 py-2 rounded font-label-caps text-[12px] text-primary hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined scale-75" style="font-variation-settings: 'FILL' 1;">monetization_on</span>
+                                1200 MONEDAS
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-4 bg-surface-container-lowest/95 backdrop-blur-3xl border-t-4 border-primary shadow-[0_-15px_50px_rgba(0,0,0,0.8)]">
+<a class="flex flex-col items-center justify-center text-primary drop-shadow-[0_0_12px_rgba(0,220,230,0.9)] bg-tertiary-container/20 rounded-xl px-6 py-3 border border-tertiary-container/30 scale-110" href="index.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">neurology</span>
+<span class="font-label-caps text-label-caps mt-1">Brain</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="ciencia.html">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-label-caps text-label-caps mt-1">Learn</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="calma.html">
+<span class="material-symbols-outlined">graphic_eq</span>
+<span class="font-label-caps text-label-caps mt-1">Calma</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="sos.html">
+<span class="material-symbols-outlined">emergency</span>
+<span class="font-label-caps text-label-caps mt-1">SOS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 hover:text-primary transition-colors" href="feedback.html">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-caps text-label-caps mt-1">Feedback</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for stat bars
+        document.addEventListener('DOMContentLoaded', () => {
+            const bars = document.querySelectorAll('.stat-bar-fill');
+            bars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300);
+            });
+        });
+
+        // Hover effect for reward cards
+        const rewardCards = document.querySelectorAll('.group');
+        rewardCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const btn = card.querySelector('button');
+                if (btn) btn.classList.add('scale-105');
+            });
+            card.addEventListener('mouseleave', () => {
+                const btn = card.querySelector('button');
+                if (btn) btn.classList.remove('scale-105');
+            });
+        });
+    </script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>

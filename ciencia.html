@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="theme-color" content="#131318">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<title>MindSpace - Ciencia y Futuro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#107000",
+                    "secondary-fixed-dim": "#ffabf3",
+                    "on-surface": "#e4e1e9",
+                    "surface-container-highest": "#35343a",
+                    "on-tertiary-fixed-variant": "#095300",
+                    "on-secondary-container": "#500050",
+                    "on-error": "#690005",
+                    "surface-container-low": "#1b1b20",
+                    "surface-container": "#1f1f25",
+                    "on-error-container": "#ffdad6",
+                    "outline": "#849495",
+                    "on-primary": "#00373a",
+                    "error": "#ffb4ab",
+                    "on-tertiary": "#053900",
+                    "surface": "#0a0a0f",
+                    "tertiary-fixed": "#79ff5b",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#2a292f",
+                    "primary-fixed": "#6ff6ff",
+                    "surface-dim": "#0a0a0f",
+                    "on-secondary-fixed": "#380038",
+                    "secondary-container": "#fe00fe",
+                    "surface-tint": "#00dce6",
+                    "background": "#0a0a0f",
+                    "secondary-fixed": "#ffd7f5",
+                    "primary": "#00f3ff",
+                    "on-primary-fixed": "#002022",
+                    "tertiary-container": "#36fd0f",
+                    "primary-fixed-dim": "#00dce6",
+                    "inverse-primary": "#00696f",
+                    "on-background": "#e4e1e9",
+                    "tertiary": "#2ae500",
+                    "secondary": "#fe00fe",
+                    "on-surface-variant": "#b9cacb",
+                    "on-tertiary-fixed": "#022100",
+                    "primary-container": "#00f3ff",
+                    "on-secondary-fixed-variant": "#810081",
+                    "surface-variant": "#35343a",
+                    "on-primary-fixed-variant": "#004f53",
+                    "outline-variant": "#3a494b",
+                    "on-primary-container": "#006b71",
+                    "surface-container-lowest": "#050508",
+                    "inverse-surface": "#e4e1e9",
+                    "tertiary-fixed-dim": "#2ae500",
+                    "surface-bright": "#39383e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "container-max": "1280px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Syne"],
+                    "headline-lg": ["Syne"],
+                    "display-lg": ["Syne"],
+                    "label-caps": ["Space Mono"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["72px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0a0a0f;
+            color: #e4e1e9;
+            overflow-x: hidden;
+        }
+
+        .digital-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .glass-card {
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .neon-border-cyan {
+            border: 1px solid #00f3ff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4), inset 0 0 8px rgba(0, 243, 255, 0.1);
+        }
+
+        .neon-border-magenta {
+            border: 1px solid #fe00fe;
+            box-shadow: 0 0 15px rgba(254, 0, 254, 0.4), inset 0 0 8px rgba(254, 0, 254, 0.1);
+        }
+
+        .neon-border-green {
+            border: 1px solid #2ae500;
+            box-shadow: 0 0 15px rgba(42, 229, 0, 0.4), inset 0 0 8px rgba(42, 229, 0, 0.1);
+        }
+
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.9), 0 0 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .text-glow-magenta {
+            text-shadow: 0 0 10px rgba(254, 0, 254, 0.9), 0 0 20px rgba(254, 0, 254, 0.4);
+        }
+
+        .text-glow-green {
+            text-shadow: 0 0 10px rgba(42, 229, 0, 0.9);
+        }
+
+        .icon-glow-cyan {
+            filter: drop-shadow(0 0 10px #00f3ff);
+        }
+
+        .icon-glow-green {
+            filter: drop-shadow(0 0 10px #2ae500);
+        }
+        
+        .icon-glow-magenta {
+            filter: drop-shadow(0 0 10px #fe00fe);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scanline::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 243, 255, 0.05) 50%, transparent 100%);
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+        
+        .acid-gradient {
+            background: linear-gradient(135deg, #00f3ff 0%, #fe00fe 100%);
+        }
+    </style>
+</head>
+<body class="digital-grid min-h-screen pb-32 font-body-md scanline">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 bg-background/90 backdrop-blur-2xl border-b border-primary/20">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl icon-glow-cyan">psychology</span>
+<h1 class="font-display-lg text-2xl text-primary tracking-tighter text-glow-cyan uppercase italic">MindSpace</h1>
+</div>
+<div class="flex gap-4">
+<button class="material-symbols-outlined text-primary hover:text-white transition-colors icon-glow-cyan">search</button>
+<button class="material-symbols-outlined text-primary hover:text-white transition-colors icon-glow-cyan">notifications</button>
+</div>
+</nav>
+<main class="pt-24 px-margin-mobile">
+<!-- Header Section -->
+<header class="mb-10 relative">
+<h2 class="font-display-lg text-[42px] leading-none text-white uppercase tracking-tighter mb-4 italic text-glow-cyan">
+            CIENCIA <span class="text-secondary italic">&amp;</span> FUTURO
+        </h2>
+<div class="h-1 w-24 acid-gradient mb-4"></div>
+<p class="font-body-md text-on-surface-variant max-w-sm font-bold border-l-2 border-primary pl-4">
+            Explora el cableado de tu cerebro y las misiones que están redefiniendo el mañana.
+        </p>
+</header>
+<!-- Video Carrousel Section -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-caps text-label-caps text-secondary font-black text-glow-magenta">VIDEO INMERSIVO: NEUROHACKING</h3>
+<span class="material-symbols-outlined text-secondary text-xl icon-glow-magenta">arrow_forward</span>
+</div>
+<div class="flex gap-5 overflow-x-auto hide-scrollbar snap-x pb-4">
+<!-- Video Card 1 -->
+<div class="flex-none w-[290px] snap-start group relative">
+<div class="glass-card neon-border-magenta aspect-[9/16] overflow-hidden rounded-xl relative">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCx72w47Fd2knXyLSIUol-KlzVT6TAVGvCmUMPVtF4t98g15HZH-4vIWeYYAEhxCzyk8EviVHRdk2c2ICJOES1N9bcYx26ugiMYpIjDwIdCOdNGczDcpvP-6dQ7iwsUBMFim8n9Yh0Kzba_WDKin1TJr2RMyYzsFmVKfwngKQgZ5-tziBcnJylivCo-wzxUrZCgFL3z4xmJNWG-bzSULLKn5FbfWucjyJ6hTz6krK-2kn0bIUpnXK6u-McyHyDCNAs-Dw5zBL8iAM')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-8xl text-secondary drop-shadow-[0_0_30px_#fe00fe] opacity-100 group-hover:scale-110 transition-transform">play_circle</span>
+</div>
+<div class="absolute bottom-6 left-5 right-5">
+<span class="bg-secondary text-on-secondary font-label-caps text-[10px] px-3 py-1 mb-4 inline-block font-black">STEM_HUB</span>
+<h4 class="font-headline-lg-mobile text-2xl leading-tight text-white text-glow-magenta uppercase italic tracking-tighter">Dopamina: El motor invisible</h4>
+</div>
+</div>
+</div>
+<!-- Video Card 2 -->
+<div class="flex-none w-[290px] snap-start group relative">
+<div class="glass-card neon-border-cyan aspect-[9/16] overflow-hidden rounded-xl relative">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAfGsqjLtQZdb4V02I9iclDUU9GxCIPHGryoZ4ukOE9KpfxXZhDbl61SCxN7YgPnUC1EhXELhRhkmQG6DYKaJVvIFdVbWMQAEIGViydVavALZozwJlTd_o5hK-HPZvmmJKhplBGIqARhai6pN7VVDadUskiWmAC7NxBhkjJxr-Av8YdlfpZRQAEwjagsfSgsTVxjYKksklIJCuke7eZ-X3lptnL33t79YnXFOYMs3SMqM2XUCNtbnuSds9bkD7TamWD8OUt5Ob4MGo')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-90"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-8xl text-primary drop-shadow-[0_0_30px_#00f3ff] opacity-100 group-hover:scale-110 transition-transform">play_circle</span>
+</div>
+<div class="absolute bottom-6 left-5 right-5">
+<span class="bg-primary text-on-primary font-label-caps text-[10px] px-3 py-1 mb-4 inline-block font-black">CAREERS</span>
+<h4 class="font-headline-lg-mobile text-2xl leading-tight text-white text-glow-cyan uppercase italic tracking-tighter">Bio-Ingeniería en el 2030</h4>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Infographic Bento Grid -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-caps text-label-caps text-tertiary font-black text-glow-green">DATA &amp; CIENCIA</h3>
+<span class="material-symbols-outlined text-tertiary text-xl icon-glow-green">grid_view</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Large Infographic Card -->
+<div class="col-span-2 glass-card neon-border-cyan p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -top-4 -right-4 opacity-10 pointer-events-none group-hover:opacity-30 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-primary icon-glow-cyan -rotate-12">neurology</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-display-lg text-3xl text-primary mb-3 uppercase italic tracking-tighter text-glow-cyan">Neuro-Génesis</h4>
+<p class="font-body-md text-white font-medium mb-6 text-sm leading-relaxed max-w-[85%]">Descubre cómo tu cerebro crea nuevas neuronas cada vez que aprendes algo nuevo.</p>
+<div class="space-y-5">
+<div class="flex flex-col gap-2">
+<div class="flex justify-between text-[11px] font-label-caps text-primary font-black">
+<span>OPTIMIZACIÓN NEURONAL</span>
+<span>84%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-full overflow-hidden border border-primary/20">
+<div class="h-full acid-gradient w-[84%] shadow-[0_0_15px_#00f3ff]"></div>
+</div>
+</div>
+</div>
+<button class="mt-8 flex items-center gap-2 text-secondary font-label-caps text-xs tracking-[0.2em] font-black group-hover:gap-4 transition-all uppercase text-glow-magenta">
+                        LEER ARCHIVO <span class="material-symbols-outlined text-sm">trending_flat</span>
+</button>
+</div>
+</div>
+<!-- Small Infographic Card 1 -->
+<div class="glass-card neon-border-green p-5 rounded-xl flex flex-col justify-between aspect-square hover:bg-tertiary/10 transition-all group">
+<span class="material-symbols-outlined text-tertiary text-5xl icon-glow-green group-hover:scale-110 transition-transform">rocket_launch</span>
+<div>
+<h4 class="font-label-caps text-[11px] text-tertiary font-black mb-1">CARRERAS STEAM</h4>
+<p class="text-xs text-white font-bold">Explora misiones espaciales.</p>
+</div>
+</div>
+<!-- Small Infographic Card 2 -->
+<div class="glass-card neon-border-magenta p-5 rounded-xl flex flex-col justify-between aspect-square hover:bg-secondary/10 transition-all group">
+<span class="material-symbols-outlined text-secondary text-5xl icon-glow-magenta group-hover:scale-110 transition-transform">biotech</span>
+<div>
+<h4 class="font-label-caps text-[11px] text-secondary font-black mb-1">MÉTODO</h4>
+<p class="text-xs text-white font-bold">Protocolos de laboratorio digital.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Career Spotlight Section -->
+<section class="mb-12">
+<div class="glass-card bg-surface-container-high/60 rounded-xl p-6 flex items-center gap-5 relative border-l-[6px] border-l-primary shadow-2xl neon-border-cyan/20">
+<div class="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 border-2 border-primary/40">
+<span class="material-symbols-outlined text-primary text-4xl icon-glow-cyan">science</span>
+</div>
+<div>
+<h4 class="font-display-lg text-xl text-white uppercase italic tracking-tighter text-glow-cyan">Genetista Computacional</h4>
+<p class="font-body-md text-on-surface-variant text-xs mt-1 font-bold">La carrera #1 con mayor crecimiento para 2025.</p>
+</div>
+<div class="absolute -top-3 right-4">
+<span class="font-label-caps text-[10px] bg-tertiary text-black px-3 py-1 font-black rounded-sm shadow-[0_0_10px_#2ae500]">HOT ADVICE</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-3 bg-black/95 backdrop-blur-3xl border-t-2 border-primary/30 rounded-t-[40px]">
+<!-- Brain -->
+<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors group" href="index.html">
+<span class="material-symbols-outlined text-2xl group-hover:icon-glow-cyan">neurology</span>
+<span class="font-label-caps text-[10px] font-black">Brain</span>
+</a>
+<!-- Learn (ACTIVE) -->
+<a class="flex flex-col items-center justify-center gap-1 text-tertiary relative" href="ciencia.html">
+<div class="absolute -top-4 w-12 h-1.5 bg-tertiary rounded-full shadow-[0_0_20px_#2ae500]"></div>
+<span class="material-symbols-outlined text-3xl icon-glow-green" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="font-label-caps text-[10px] font-black uppercase text-glow-green">Learn</span>
+</a>
+<!-- Calma -->
+<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors group" href="calma.html">
+<span class="material-symbols-outlined text-2xl group-hover:icon-glow-cyan">graphic_eq</span>
+<span class="font-label-caps text-[10px] font-black">Calma</span>
+</a>
+<!-- SOS -->
+<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors group" href="sos.html">
+<span class="material-symbols-outlined text-2xl group-hover:icon-glow-cyan">emergency</span>
+<span class="font-label-caps text-[10px] font-black">SOS</span>
+</a>
+<!-- Feedback -->
+<a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors group" href="feedback.html">
+<span class="material-symbols-outlined text-2xl group-hover:icon-glow-cyan">forum</span>
+<span class="font-label-caps text-[10px] font-black">Feedback</span>
+</a>
+</nav>
+<script>
+    // Enhanced micro-interactions for glass cards
+    document.querySelectorAll('.glass-card').forEach(card => {
+        card.addEventListener('touchstart', () => {
+            card.style.transform = 'scale(0.96) translateY(2px)';
+            card.style.transition = 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        });
+        card.addEventListener('touchend', () => {
+            card.style.transform = 'scale(1) translateY(0)';
+        });
+    });
+
+    // Subtitle grid shift animation - faster and more dynamic
+    const grid = document.querySelector('.digital-grid');
+    let posX = 0;
+    let posY = 0;
+    
+    function animateGrid() {
+        posX += 0.15;
+        posY += 0.15;
+        grid.style.backgroundPosition = `${posX}px ${posY}px`;
+        requestAnimationFrame(animateGrid);
+    }
+    animateGrid();
+</script>
+<script>if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js')}</script>
+</body></html>
