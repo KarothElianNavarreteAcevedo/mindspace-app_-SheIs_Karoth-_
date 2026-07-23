@@ -9,9 +9,9 @@ export default {
         primary: '#00f3ff', // Cian Neón
         secondary: '#bc13fe', // Púrpura Neón
         accent: '#39ff14', // Verde Neón (Éxito)
-        danger: '#ff2d55', // Rojo Neón (SOS/Alerta)
-        background: '#131318',
-        surface: '#1b1b20',
+        danger: '#ff2d55', // Rojo Neón (SOS)
+        background: '#131318', // Fondo Profundo
+        surface: '#1b1b20', // Tarjetas y Contenedores
         'surface-bright': '#39383e',
       },
       fontFamily: {
