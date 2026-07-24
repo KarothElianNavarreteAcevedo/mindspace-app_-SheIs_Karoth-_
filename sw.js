@@ -1,15 +1,10 @@
-const CACHE = 'mindspace-v1';
+const CACHE = 'mindspace-v2';
 const URLS = [
   '/',
-  '/index.html',
-  '/ciencia.html',
-  '/calma.html',
-  '/sos.html',
-  '/feedback.html',
-  '/progreso.html',
-  '/descompresion.html',
-  '/misiones.html',
-  '/segura.html',
+  '/calma',
+  '/ciencia',
+  '/sos',
+  '/feedback',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png'

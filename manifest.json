@@ -2,7 +2,7 @@
   "name": "MindSpace - Tu Espacio Seguro",
   "short_name": "MindSpace",
   "description": "Prevención, ciencia y salud mental para jóvenes. Explora tu cerebro, encuentra calma y obtén ayuda inmediata.",
-  "start_url": "/index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#131318",
   "theme_color": "#131318",

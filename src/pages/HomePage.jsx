@@ -18,7 +18,7 @@ const infoData = {
     nucleus: {
         title: "Núcleo Accumbens",
         text: "El centro de recompensa. Las drogas inundan este canal con señales artificiales masivas, lo que puede llevar al cerebro a ignorar los placeres naturales.",
-        icon: "ward", // 'reward' corregido a un icono válido 'ward'
+        icon: "ward",
         color: "#36fd0f",
         shadow: "rgba(54, 253, 15, 0.4)"
     },
@@ -36,52 +36,55 @@ const HomePage = () => {
     const data = activeRegion ? infoData[activeRegion] : null;
 
     return (
-        <main className="min-h-screen bg-background text-white font-syne max-w-md mx-auto relative overflow-x-hidden border-x border-primary/5">
+        <main className="pt-24 pb-32 px-4 retro-grid-complex min-h-screen flex flex-col items-center">
             <section className="w-full max-w-2xl mb-10 text-center relative z-20">
-                <h2 className="font-headline-lg-mobile text-[40px] leading-none mb-4 text-primary text-glow-primary uppercase italic tracking-tighter">EXPLORA TU CEREBRO</h2>
-                <p className="font-body-md text-primary/80 font-bold bg-primary/5 py-2 px-4 rounded border-x border-primary/20 inline-block">Interactúa con el biosistema neural para diagnosticar efectos.</p>
+                <h2 id="brain-title" className="text-[40px] leading-none mb-4 text-primary text-glow-primary uppercase italic tracking-tighter">EXPLORA TU CEREBRO</h2>
+                <p className="text-body-md text-primary/80 font-bold bg-primary/5 py-2 px-4 rounded border-x border-primary/20 inline-block">Interactúa con el biosistema neural para diagnosticar efectos.</p>
             </section>
 
-            <section className="relative w-full max-w-lg aspect-square flex items-center justify-center z-20 mb-4">
+            <section role="region" aria-labelledby="brain-title" className="relative w-full max-w-lg aspect-square flex items-center justify-center z-20 mb-4">
                 <div className="relative w-full h-full flex items-center justify-center p-2 rounded-2xl border-2 border-primary/20 bg-surface-container-lowest shadow-[0_0_40px_rgba(0,0,0,0.8)]">
-                    <div className="w-full h-full bg-contain bg-no-repeat bg-center relative rounded-xl overflow-hidden" style={{ backgroundImage: "url('/images/brain.png')" }}>
+                    <div className="w-full h-full bg-contain bg-no-repeat bg-center relative rounded-xl overflow-hidden" style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAJhMGmnvQDWs3xPLXWnkNMnvZaufVJdfHC5fFD7NWjJmL2EhElfzLao5HUTuXTixW2TkgutQ9JZ1tNkEuqQy28khzK4Gm0HcSd9xlV3cPdjMQJlmBiIIBagFzuHe2e53OK88s0O1GobsTN0UqnpaNqoi2vmdTTAeOU9QMYSEXk8ktNtkBqLhOUEPU5EUoUzOW9Kt72d1QkLv7_t1eq94FpAX7U4jD84es3b4rrBWZhonno1ZzdrKmP7rGtB8oximavt5RQ0va35C0')" }}>
                         
-                        <button onClick={() => setActiveRegion('cortex')} className="brain-hotspot absolute top-[25%] left-[60%] w-9 h-9 bg-primary-container rounded-full neon-glow-primary animate-pulse-intense flex items-center justify-center cursor-pointer text-on-primary z-30">
-                            <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
+                        <button aria-label="Activar información sobre la Corteza Prefrontal" onClick={() => setActiveRegion('cortex')} className="brain-hotspot absolute top-[25%] left-[60%] w-9 h-9 bg-primary-container rounded-full neon-glow-primary animate-pulse-intense flex items-center justify-center cursor-pointer text-on-primary z-30 border-2 border-white">
+                            <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: 'FILL 1' }}>bolt</span>
                         </button>
-                        <button onClick={() => setActiveRegion('amygdala')} className="brain-hotspot absolute top-[55%] left-[45%] w-7 h-7 bg-secondary-container rounded-full neon-glow-secondary animate-pulse-intense flex items-center justify-center cursor-pointer text-white z-30">
-                            <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+                        <button aria-label="Activar información sobre la Amígdala" onClick={() => setActiveRegion('amygdala')} className="brain-hotspot absolute top-[55%] left-[45%] w-7 h-7 bg-secondary-container rounded-full neon-glow-secondary animate-pulse-intense flex items-center justify-center cursor-pointer text-white z-30 border-2 border-white">
+                            <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: 'FILL 1' }}>favorite</span>
                         </button>
-                        <button onClick={() => setActiveRegion('nucleus')} className="brain-hotspot absolute top-[45%] left-[55%] w-8 h-8 bg-tertiary-container rounded-full neon-glow-tertiary animate-pulse-intense flex items-center justify-center cursor-pointer text-on-tertiary z-30">
-                            <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: "'FILL' 1" }}>ward</span>
+                        <button aria-label="Activar información sobre el Núcleo Accumbens" onClick={() => setActiveRegion('nucleus')} className="brain-hotspot absolute top-[45%] left-[55%] w-8 h-8 bg-tertiary-container rounded-full neon-glow-tertiary animate-pulse-intense flex items-center justify-center cursor-pointer text-on-tertiary z-30 border-2 border-white">
+                            <span className="material-symbols-outlined text-base" style={{ fontVariationSettings: 'FILL 1' }}>ward</span>
                         </button>
-                        <button onClick={() => setActiveRegion('hippocampus')} className="brain-hotspot absolute top-[58%] left-[38%] w-6 h-6 bg-secondary-container rounded-full neon-glow-secondary animate-pulse-intense flex items-center justify-center cursor-pointer text-white z-30">
-                            <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: "'FILL' 1" }}>menu_book</span>
+                        <button aria-label="Activar información sobre el Hipocampo" onClick={() => setActiveRegion('hippocampus')} className="brain-hotspot absolute top-[58%] left-[38%] w-6 h-6 bg-secondary-container rounded-full neon-glow-secondary animate-pulse-intense flex items-center justify-center cursor-pointer text-white z-30 border-2 border-white">
+                            <span className="material-symbols-outlined text-xs" style={{ fontVariationSettings: 'FILL 1' }}>menu_book</span>
                         </button>
                     </div>
                 </div>
             </section>
 
-            <div className="w-full max-w-2xl mt-8 grid grid-cols-1 gap-4 relative z-20">
+            <div aria-live="polite" className="w-full max-w-2xl mt-8 grid grid-cols-1 gap-4 relative z-20">
                 {!data ? (
                     <div className="col-span-full glass-card p-10 rounded-xl flex flex-col items-center text-center border-2 border-primary-container shadow-[0_0_30px_rgba(0,243,255,0.15)] cyber-border">
                         <span className="material-symbols-outlined text-primary-container text-6xl mb-6 animate-bounce drop-shadow-[0_0_10px_rgba(0,243,255,0.8)]">touch_app</span>
-                        <h3 className="font-headline-lg-mobile text-primary-container mb-4 tracking-[0.2em] uppercase italic text-glow-primary">Interacción Neural</h3>
-                        <p className="font-body-md text-on-surface-variant max-w-sm font-medium leading-relaxed">
+                        <h3 className="text-headline-lg-mobile text-primary-container mb-4 tracking-[0.2em] uppercase italic text-glow-primary">Interacción Neural</h3>
+                        <p className="text-body-md text-on-surface-variant max-w-sm font-medium leading-relaxed">
                             SISTEMA LISTO. SELECCIONE REGIÓN CORTICAL PARA ANALIZAR EL IMPACTO QUÍMICO EN EL POTENCIAL COGNITIVO.
                         </p>
                         <div className="mt-6 flex gap-2">
                             <span className="w-2 h-2 bg-primary-container rounded-full animate-ping"></span>
-                            <span className="w-2 h-2 bg-primary-container rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></span>
-                            <span className="w-2 h-2 bg-primary-container rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></span>
+                            <span className="w-2 h-2 bg-primary-container rounded-full animate-ping [animation-delay:0.2s]"></span>
+                            <span className="w-2 h-2 bg-primary-container rounded-full animate-ping [animation-delay:0.4s]"></span>
                         </div>
                     </div>
                 ) : (
-                    <div className="col-span-full glass-card p-8 rounded-xl border-l-[6px] shadow-[0_0_40px_rgba(0,243,255,0.1)] cyber-border animate-fade-in" style={{ borderLeftColor: data.color, boxShadow: `0 0 40px ${data.shadow}` }}>
+                    <div 
+                        className="col-span-full glass-card p-8 rounded-xl border-l-[6px] cyber-border animate-fade-in"
+                        style={{ borderLeftColor: data.color, boxShadow: `0 0 40px ${data.shadow}` }}
+                    >
                         <div className="flex justify-between items-center mb-8 pb-4 border-b border-primary/20">
                             <div className="flex flex-col">
                                 <span className="text-[10px] font-label-caps text-primary/60 tracking-[0.3em] mb-1">ANALIZANDO_ZONA</span>
-                                <h3 className="font-headline-lg-mobile text-3xl italic" style={{ color: data.color, textShadow: `0 0 10px ${data.color}` }}>{data.title}</h3>
+                                <h3 className="text-headline-lg-mobile text-3xl italic" style={{ color: data.color, textShadow: `0 0 10px ${data.color}` }}>{data.title}</h3>
                             </div>
                             <div className="p-3 bg-primary-container/20 border rounded-lg" style={{ borderColor: data.color }}>
                                 <span className="material-symbols-outlined text-4xl" style={{ color: data.color }}>{data.icon}</span>
@@ -89,10 +92,35 @@ const HomePage = () => {
                         </div>
                         <div className="flex gap-4 mb-8">
                             <div className="w-1 bg-gradient-to-b from-primary-container to-transparent opacity-50"></div>
-                            <p className="font-body-md text-on-surface text-lg leading-relaxed font-medium italic">{data.text}</p>
+                            <p className="text-body-md text-on-surface text-lg leading-relaxed font-medium italic">{data.text}</p>
+                        </div>
+                        <div className="flex flex-wrap gap-3">
+                            <span className="bg-primary-container/10 px-5 py-2 rounded text-label-caps text-primary-container font-bold border border-primary-container/40 uppercase tracking-widest shadow-[0_0_10px_rgba(0,243,255,0.2)]">Control de impulsos</span>
+                            <span className="bg-primary-container/10 px-5 py-2 rounded text-label-caps text-primary-container font-bold border border-primary-container/40 uppercase tracking-widest shadow-[0_0_10px_rgba(0,243,255,0.2)]">Lógica</span>
                         </div>
                     </div>
                 )}
+            </div>
+
+            <div className="mt-8 grid grid-cols-2 gap-4 w-full max-w-2xl relative z-20">
+                <div className="glass-card p-6 rounded-xl flex flex-col gap-4 border-2 border-secondary-container/30 hover:border-secondary-container hover:bg-secondary-container/10 transition-all cursor-pointer group active:scale-95 shadow-[0_0_20px_rgba(254,0,254,0.1)]">
+                    <div className="w-14 h-14 rounded-lg bg-secondary-container flex items-center justify-center shadow-[0_0_15px_rgba(254,0,254,0.6)]">
+                        <span className="material-symbols-outlined text-white text-3xl group-hover:rotate-12 transition-transform">auto_stories</span>
+                    </div>
+                    <div>
+                        <p className="font-display-lg text-lg text-secondary-container text-glow-secondary font-bold uppercase italic leading-none mb-1">Aprender más</p>
+                        <p className="text-[10px] text-white/60 uppercase tracking-[0.2em] font-bold">Protocolos &amp; Guías</p>
+                    </div>
+                </div>
+                <div className="glass-card p-6 rounded-xl flex flex-col gap-4 border-2 border-primary-container/30 hover:border-primary-container hover:bg-primary-container/10 transition-all cursor-pointer group active:scale-95 shadow-[0_0_20px_rgba(0,243,255,0.1)]">
+                    <div className="w-14 h-14 rounded-lg bg-primary-container flex items-center justify-center shadow-[0_0_15px_rgba(0,243,255,0.6)]">
+                        <span className="material-symbols-outlined text-on-primary text-3xl group-hover:scale-110 transition-transform" style={{ fontVariationSettings: 'FILL 1' }}>emergency_home</span>
+                    </div>
+                    <div>
+                        <p className="font-display-lg text-lg text-primary-container text-glow-primary font-bold uppercase italic leading-none mb-1">SOS Línea</p>
+                        <p className="text-[10px] text-white/60 uppercase tracking-[0.2em] font-bold">Ayuda Neural 24/7</p>
+                    </div>
+                </div>
             </div>
         </main>
     );
