@@ -1,11 +1,14 @@
 import { NavLink } from 'react-router-dom';
 
 const navItems = [
-    { href: "/", icon: "neurology", label: "Brain", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-7 py-3.5 border-2 border-tertiary-container/50" },
-    { href: "/ciencia", icon: "movie", label: "Learn", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-7 py-3.5 border-2 border-tertiary-container/50" },
-    { href: "/calma", icon: "graphic_eq", label: "Calma", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-7 py-3.5 border-2 border-tertiary-container/50" },
-    { href: "/sos", icon: "emergency", label: "SOS", activeClasses: "text-black neon-glow-green bg-tertiary-fixed-dim rounded-full w-16 h-16 scale-110 border-2 border-white/40" },
-    { href: "/feedback", icon: "forum", label: "Feedback", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-7 py-3.5 border-2 border-tertiary-container/50" },
+    { href: "/", icon: "neurology", label: "Brain", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-4 py-3 border-2 border-tertiary-container/50" },
+    { href: "/ciencia", icon: "movie", label: "Learn", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-4 py-3 border-2 border-tertiary-container/50" },
+    { href: "/calma", icon: "graphic_eq", label: "Calma", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-4 py-3 border-2 border-tertiary-container/50" },
+    { href: "/sos", icon: "emergency", label: "SOS", activeClasses: "text-black neon-glow-green bg-tertiary-fixed-dim rounded-full w-14 h-14 scale-110 border-2 border-white/40" },
+    { href: "/progreso", icon: "monitoring", label: "Progreso", activeClasses: "text-primary drop-shadow-[0_0_25px_rgba(0,243,255,1)] bg-primary/30 rounded-xl px-4 py-3 border-2 border-primary/50" },
+    { href: "/descompresion", icon: "self_improvement", label: "Decom", activeClasses: "text-secondary drop-shadow-[0_0_25px_rgba(254,0,254,1)] bg-secondary/30 rounded-xl px-4 py-3 border-2 border-secondary/50" },
+    { href: "/misiones", icon: "stars", label: "Retos", activeClasses: "text-tertiary-fixed drop-shadow-[0_0_25px_rgba(42,229,0,1)] bg-tertiary-container/30 rounded-xl px-4 py-3 border-2 border-tertiary-fixed/50" },
+    { href: "/feedback", icon: "forum", label: "Feedback", activeClasses: "text-tertiary-container drop-shadow-[0_0_25px_rgba(54,253,15,1)] bg-tertiary-container/30 rounded-xl px-4 py-3 border-2 border-tertiary-container/50" },
 ];
 
 const BottomNav = () => {

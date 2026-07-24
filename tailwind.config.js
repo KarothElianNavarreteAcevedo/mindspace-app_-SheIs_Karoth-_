@@ -64,6 +64,8 @@ export default {
       },
       fontFamily: {
         syne: ['Syne', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        'space-mono': ['Space Mono', 'monospace'],
       },
       fontSize: {
         'headline-xl': ['48px', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
@@ -79,12 +81,12 @@ export default {
         'neon-green': '0 0 15px rgba(57, 255, 20, 0.4)',
       },
       borderRadius: {
-        sm: '0.25rem',
-        DEFAULT: '0.5rem',
-        md: '0.75rem',
-        lg: '1rem',
-        xl: '1.5rem',
-        full: '9999px',
+        sm: '2px',
+        DEFAULT: '4px',
+        md: '4px',
+        lg: '8px',
+        xl: '12px',
+        full: '12px',
       },
       animation: {
         'pulse-intense': 'pulse-intense 2.5s infinite ease-in-out',

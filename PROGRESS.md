@@ -137,6 +137,26 @@ Build verificado: ✅ 40 módulos, 1.96s, sin errores.
 
 ---
 
+### 7. Auditoría Visual — Correcciones Aplicadas
+
+| # | Elemento | Antes | Después |
+|---|----------|-------|---------|
+| 1 | Grid background | 30px | 40px (DESIGN.md) |
+| 2 | Glass card background | rgba(31,31,37,0.75) | rgba(14,14,19,0.75) |
+| 3 | Glass card blur | blur(16px) | blur(20px) |
+| 4 | Scanline animado | Solo CRT estático | Añadida banda móvil 6s loop |
+| 5 | Font families | Solo Syne | Syne + Inter + Space Mono |
+| 6 | Border radius | sm=4px, md=12px, xl=24px | sm=2px, md=4px, lg=8px, xl=12px |
+| 7 | Neon glow | 40px/0.4 opacity | 20px/0.7 opacity (match DESIGN.md) |
+| 8 | BottomNav | 5 rutas | 8 rutas (agregados progreso, descomp, misiones) |
+| 9 | glass-card-high | No existía | Creada con blur(24px) + box-shadow |
+| 10 | neon-glow-tertiary | No existía | Creada (verde neón) |
+| 11 | Layout grid bg | No tenía | Agregado grid-background global |
+
+Build verificado: ✅ 44 módulos, 2.10s, 9/9 rutas HTTP 200
+
+---
+
 ### 6. Páginas Faltantes — Implementación Completa
 
 | Ruta | Componente | Archivo | Estado |
@@ -169,3 +189,4 @@ Build verificado: ✅ 40 módulos, 1.96s, sin errores.
 | 2026-07-24 | 4. Git | ✅ | Commit → rebase → merge → push → rama temporal eliminada |
 | 2026-07-24 | 5. Evaluación Final | ✅ | 14/14 pruebas pasadas |
 | 2026-07-24 | 6. Páginas Faltantes | ✅ | 4 componentes creados, 9/9 rutas funcionando |
+| 2026-07-24 | 7. Auditoría Visual | ✅ | 10 discrepancias corregidas vs DESIGN.md |
