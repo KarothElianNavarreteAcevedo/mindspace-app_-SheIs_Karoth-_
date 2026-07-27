@@ -33,24 +33,25 @@ const MisionesPage = () => {
   return (
     <main className="pt-24 pb-32 px-4 max-w-2xl mx-auto min-h-screen">
       <section className="mb-10 text-center">
-        <h2 className="retrowave-title text-4xl mb-2 uppercase tracking-[0.1em] italic text-glow-cyan">Misiones y Recompensas</h2>
-        <p className="text-secondary font-label-caps text-[13px] tracking-widest uppercase">Desbloquea tu mejor versión</p>
+        <h2 className="font-display-lg-mobile md:font-display-lg text-primary drop-shadow-[0_0_30px_rgba(0,243,255,0.6)] text-glow-cyan uppercase italic">Misiones y Recompensas</h2>
+        <div className="h-1 w-32 acid-gradient mx-auto my-6"></div>
+        <p className="text-secondary font-label-caps drop-shadow-[0_0_10px_rgba(254,0,254,0.4)]">Desbloquea tu mejor versión</p>
       </section>
 
       <div className="glass-card p-6 rounded-xl mb-8 border-primary/30 text-center">
         <div className="flex items-center justify-center gap-3 mb-2">
           <span className="material-symbols-outlined text-primary text-3xl">stars</span>
           <p className="text-4xl font-bold text-primary font-syne">{xp}</p>
-          <span className="font-label-caps text-primary text-[10px] tracking-widest">XP</span>
+          <span className="font-label-caps text-primary">XP</span>
         </div>
         <div className="h-2 bg-white/5 rounded-full overflow-hidden max-w-xs mx-auto">
           <div className="h-full bg-gradient-to-r from-primary to-secondary rounded-full transition-all" style={{ width: `${(xp % 500) / 5}%` }}></div>
         </div>
-        <p className="text-[11px] text-on-surface-variant mt-2">Siguiente nivel: {500 - (xp % 500)} XP</p>
+        <p className="font-label-md text-on-surface-variant mt-2">Siguiente nivel: {500 - (xp % 500)} XP</p>
       </div>
 
       <section className="mb-8">
-        <h3 className="font-label-caps text-primary text-sm tracking-[0.2em] mb-4 flex items-center gap-2">
+        <h3 className="font-label-caps text-primary mb-4 flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">bar_chart</span>
           TUS STATS
         </h3>
@@ -60,7 +61,7 @@ const MisionesPage = () => {
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center gap-2">
                   <span className={`material-symbols-outlined ${stat.color}`} style={{ fontVariationSettings: "'FILL' 1" }}>{stat.icon}</span>
-                  <span className={`font-bold text-sm ${stat.color}`}>{stat.name}</span>
+                  <span className={`font-label-caps ${stat.color}`}>{stat.name}</span>
                 </div>
                 <span className={`text-lg font-bold ${stat.color}`}>{stat.value}%</span>
               </div>
@@ -73,7 +74,7 @@ const MisionesPage = () => {
       </section>
 
       <section className="mb-8">
-        <h3 className="font-label-caps text-primary text-sm tracking-[0.2em] mb-4 flex items-center gap-2">
+        <h3 className="font-label-caps text-primary mb-4 flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">flag</span>
           DESAFÍOS ACTIVOS
         </h3>
@@ -87,14 +88,14 @@ const MisionesPage = () => {
                 <div className="flex-1">
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-bold text-sm text-primary">{c.title}</p>
-                      <p className="text-[12px] text-on-surface-variant mt-1">{c.desc}</p>
+                      <p className="font-label-caps text-primary">{c.title}</p>
+                      <p className="font-label-md text-on-surface-variant mt-1">{c.desc}</p>
                     </div>
-                    <span className="font-label-caps text-[10px] text-tertiary-fixed bg-tertiary-container/20 px-2 py-1 rounded">{c.reward}</span>
+                    <span className="font-label-caps text-tertiary-fixed bg-tertiary-container/20 px-2 py-1 rounded">{c.reward}</span>
                   </div>
-                  <button onClick={() => handleCompleteChallenge(i)}
-                    className="mt-3 px-5 py-1.5 bg-primary/20 text-primary font-label-caps text-[10px] rounded-lg border border-primary/30 hover:bg-primary/30 transition-all active:scale-95"
-                  >
+                    <button onClick={() => handleCompleteChallenge(i)}
+                      className="mt-3 px-5 py-1.5 bg-primary/20 text-primary font-label-caps rounded-lg border border-primary/30 hover:bg-primary/30 transition-all active:scale-95"
+                    >
                     COMPLETAR
                   </button>
                 </div>
@@ -105,7 +106,7 @@ const MisionesPage = () => {
       </section>
 
       <section>
-        <h3 className="font-label-caps text-primary text-sm tracking-[0.2em] mb-4 flex items-center gap-2">
+        <h3 className="font-label-caps text-primary mb-4 flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">store</span>
           TIENDA DE RECOMPENSAS
         </h3>
@@ -113,8 +114,8 @@ const MisionesPage = () => {
           {shopItems.map((item) => (
             <button key={item.name} className="glass-card p-4 rounded-xl text-center border-primary/20 hover:border-primary/50 transition-all active:scale-95 group">
               <span className={`material-symbols-outlined text-3xl ${item.color} group-hover:scale-110 transition-transform`} style={{ fontVariationSettings: "'FILL' 1" }}>{item.icon}</span>
-              <p className="text-[11px] font-bold mt-2">{item.name}</p>
-              <p className="text-[10px] text-primary mt-1">{item.cost} XP</p>
+              <p className="font-label-caps mt-2">{item.name}</p>
+              <p className="font-label-md text-primary mt-1">{item.cost} XP</p>
             </button>
           ))}
         </div>

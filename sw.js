@@ -5,6 +5,10 @@ const URLS = [
   '/ciencia',
   '/sos',
   '/feedback',
+  '/progreso',
+  '/descompresion',
+  '/misiones',
+  '/segura',
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png'

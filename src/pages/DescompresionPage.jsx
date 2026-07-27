@@ -28,14 +28,15 @@ const DescompresionPage = () => {
   return (
     <main className="pt-24 pb-32 px-4 max-w-2xl mx-auto min-h-screen">
       <section className="mb-10 text-center">
-        <h2 className="retrowave-title text-4xl mb-2 uppercase tracking-[0.1em] italic text-glow-magenta">Zona de Descompresión</h2>
-        <p className="text-secondary font-label-caps text-[13px] tracking-widest uppercase">Tu espacio seguro para recargar energía</p>
+        <h2 className="font-display-lg-mobile md:font-display-lg text-secondary drop-shadow-[0_0_30px_rgba(254,0,254,0.6)] text-glow-magenta uppercase italic">Zona de Descompresión</h2>
+        <div className="h-1 w-32 acid-gradient mx-auto my-6"></div>
+        <p className="text-secondary font-label-caps drop-shadow-[0_0_10px_rgba(254,0,254,0.4)]">Tu espacio seguro para recargar energía</p>
       </section>
 
       <div className="glass-card p-6 rounded-xl mb-8 border-secondary/30">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <p className="font-label-caps text-secondary text-[10px] tracking-[0.2em]">VITALIDAD</p>
+            <p className="font-label-caps text-secondary">VITALIDAD</p>
             <p className="text-3xl font-bold text-secondary">{vitality}%</p>
           </div>
           <div className="w-16 h-16 rounded-full bg-secondary-container/30 flex items-center justify-center border-2 border-secondary shadow-[0_0_20px_rgba(254,0,254,0.3)]">
@@ -49,9 +50,9 @@ const DescompresionPage = () => {
           {['Baja', 'Media', 'Alta', 'Recargado'].map((label, i) => {
             const val = i * 33 + 10;
             return (
-              <button key={label} onClick={() => setVitality(val)}
-                className="flex-1 py-2 text-[10px] font-label-caps rounded-lg border border-secondary/30 hover:bg-secondary/10 transition-all active:scale-95"
-              >
+                <button key={label} onClick={() => setVitality(val)}
+                  className="flex-1 py-2 font-label-caps rounded-lg border border-secondary/30 hover:bg-secondary/10 transition-all active:scale-95"
+                >
                 {label}
               </button>
             );
@@ -60,7 +61,7 @@ const DescompresionPage = () => {
       </div>
 
       <section className="mb-8">
-        <h3 className="font-label-caps text-primary text-sm tracking-[0.2em] mb-4 flex items-center gap-2">
+        <h3 className="font-label-caps text-primary mb-4 flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">stadia_controller</span>
           MINIJUEGOS DE MINDFULNESS
         </h3>
@@ -73,8 +74,8 @@ const DescompresionPage = () => {
                 <span className={`material-symbols-outlined text-2xl ${game.color}`} style={{ fontVariationSettings: "'FILL' 1" }}>{game.icon}</span>
               </div>
               <div className="flex-1">
-                <p className={`font-bold text-sm ${game.color}`}>{game.title}</p>
-                <p className="text-[11px] text-on-surface-variant mt-1">{game.desc}</p>
+                <p className={`font-label-caps ${game.color}`}>{game.title}</p>
+                <p className="font-label-md text-on-surface-variant mt-1">{game.desc}</p>
               </div>
               <span className="material-symbols-outlined text-primary">play_circle</span>
             </button>
@@ -83,8 +84,8 @@ const DescompresionPage = () => {
         {activeGame && (
           <div className="mt-6 glass-card p-8 rounded-xl text-center border-primary/30 animate-pulse-intense">
             <span className="material-symbols-outlined text-primary text-6xl mb-4">self_improvement</span>
-            <p className="text-primary font-bold text-lg mb-2">{activeGame} ACTIVADO</p>
-            <p className="text-on-surface-variant text-sm">Concentra tu mente en el presente. Respira profundo.</p>
+            <p className="text-primary font-headline-md mb-2">{activeGame} ACTIVADO</p>
+            <p className="font-body-md text-on-surface-variant">Concentra tu mente en el presente. Respira profundo.</p>
             <button onClick={() => setActiveGame(null)} className="mt-6 px-8 py-3 bg-primary text-on-primary font-label-caps rounded-xl active:scale-95 transition-all">
               CERRAR SESIÓN
             </button>
@@ -93,7 +94,7 @@ const DescompresionPage = () => {
       </section>
 
       <section>
-        <h3 className="font-label-caps text-primary text-sm tracking-[0.2em] mb-4 flex items-center gap-2">
+        <h3 className="font-label-caps text-primary mb-4 flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">assignment</span>
           MISIÓN DEL DÍA
         </h3>
@@ -101,9 +102,9 @@ const DescompresionPage = () => {
           <div className="flex items-start gap-4">
             <span className="material-symbols-outlined text-tertiary-fixed text-3xl">check_circle</span>
             <div>
-              <p className="text-tertiary-fixed font-bold">5 minutos de respiración consciente</p>
-              <p className="text-sm text-on-surface-variant mt-1">Completa esta misión para ganar +10% de vitalidad.</p>
-              <button className="mt-3 px-6 py-2 bg-tertiary-container/20 text-tertiary-fixed font-label-caps text-[11px] rounded-lg border border-tertiary-fixed/30 hover:bg-tertiary-container/30 transition-all active:scale-95">
+              <p className="text-tertiary-fixed font-headline-md">5 minutos de respiración consciente</p>
+              <p className="font-body-md text-on-surface-variant mt-1">Completa esta misión para ganar +10% de vitalidad.</p>
+              <button className="mt-3 px-6 py-2 bg-tertiary-container/20 text-tertiary-fixed font-label-caps rounded-lg border border-tertiary-fixed/30 hover:bg-tertiary-container/30 transition-all active:scale-95">
                 COMPLETAR MISIÓN
               </button>
             </div>

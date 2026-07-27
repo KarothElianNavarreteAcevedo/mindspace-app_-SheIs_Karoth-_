@@ -208,8 +208,9 @@ const CalmaPage = () => {
         <div className="min-h-screen bg-background text-white font-syne max-w-md mx-auto relative overflow-x-hidden border-x border-primary/5">
             <div className="grid-background fixed inset-0" style={{ transform: 'perspective(500px) rotateX(60deg) translateY(-100px)', opacity: 0.4, zIndex: -1 }}></div>
             <section className="text-center space-y-4 py-8">
-                <h2 className="font-headline-lg-mobile md:font-headline-lg text-primary-fixed-dim neon-glow-cyan">Frecuencias de Calma</h2>
-                <p className="text-on-surface-variant font-body-md max-w-2xl mx-auto italic">Terapia sonora con piano armónico estilo Clayderman, lluvia natural y frecuencias binaurales.</p>
+                <h2 className="font-display-lg-mobile md:font-display-lg text-primary-fixed-dim drop-shadow-[0_0_30px_rgba(0,220,230,0.6)] neon-glow-cyan uppercase italic">Frecuencias de Calma</h2>
+                <div className="h-1 w-32 acid-gradient mx-auto my-6"></div>
+                <p className="text-primary-fixed-dim font-body-md drop-shadow-[0_0_10px_rgba(0,220,230,0.3)] italic font-bold">Terapia sonora con piano armónico estilo Clayderman, lluvia natural y frecuencias binaurales.</p>
             </section>
 
             <section className="space-y-6">
@@ -229,7 +230,7 @@ const CalmaPage = () => {
                                 } ${btn.special ? 'col-span-2 md:col-span-1 border-error/20 bg-error/5' : ''}`}
                             >
                                 <span className={`material-symbols-outlined ${btn.color} group-hover:scale-110 transition-transform`}>{btn.icon}</span>
-                                <span className="font-label-caps text-[10px] uppercase leading-tight">{btn.label}</span>
+                                <span className="font-label-caps leading-tight">{btn.label}</span>
                             </button>
                         );
                     })}
@@ -262,7 +263,7 @@ const CalmaPage = () => {
                                 <button
                                     key={time}
                                     onClick={() => setActiveTimer(time)}
-                                    className={`py-2 px-4 rounded-full text-[10px] font-label-caps transition-colors ${
+                                                className={`py-2 px-4 rounded-full font-label-caps transition-colors ${
                                         activeTimer === time
                                             ? 'border border-primary bg-primary/20 text-primary shadow-[0_0_10px_rgba(0,220,230,0.3)]'
                                             : 'border border-primary/30 hover:bg-primary/10'
@@ -287,7 +288,7 @@ const CalmaPage = () => {
                             <div className="space-y-4">
                                 {soundMix.map(sound => (
                                     <div key={sound.name} className="space-y-2">
-                                        <div className="flex justify-between text-xs font-label-caps">
+                                        <div className="flex justify-between font-label-caps">
                                             <span>{sound.name}</span>
                                             <span className="text-secondary">{mixValues[sound.name]}%</span>
                                         </div>
@@ -305,8 +306,8 @@ const CalmaPage = () => {
 
                             <div className="flex items-center justify-between bg-surface-container-low p-4 rounded-xl border border-primary/20">
                                 <div>
-                                    <h4 className="text-sm font-bold text-primary">Mezcla Natural y Binaural</h4>
-                                    <p className="text-[10px] text-on-surface-variant uppercase">Control de audio simultáneo</p>
+                                    <h4 className="font-label-caps text-primary">MEZCLA NATURAL Y BINAURAL</h4>
+                                    <p className="font-label-md text-on-surface-variant">Control de audio simultáneo</p>
                                 </div>
                                 <button 
                                     onClick={handlePlayPause} 
@@ -331,7 +332,7 @@ const CalmaPage = () => {
                     
                     <section className="glass-panel p-6 rounded-xl">
                         <h3 className="font-label-caps text-tertiary-fixed mb-4">DIARIO DE SONIDO</h3>
-                        <p className="text-sm mb-4">¿Cómo te sientes después de escuchar?</p>
+                        <p className="font-body-md mb-4">¿Cómo te sientes después de escuchar?</p>
                         <div className="flex justify-between gap-2">
                             {['sentiment_dissatisfied', 'sentiment_neutral', 'sentiment_satisfied', 'sentiment_very_satisfied'].map(m => (
                                 <button key={m} onClick={() => setMood(m)} className={`w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-primary/20 transition-colors ${mood === m ? 'border border-primary/40 shadow-[0_0_8px_rgba(0,220,230,0.2)]' : ''}`}>

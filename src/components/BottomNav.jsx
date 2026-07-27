@@ -32,7 +32,7 @@ const BottomNav = () => {
                                 >
                                     {item.icon}
                                 </span>
-                                <span className={`font-label-caps mt-2 font-black tracking-[0.2em] ${isActive && item.href === '/' ? 'text-[11px]' : 'text-[10px]'}`}>
+                                <span className="font-label-caps mt-2">
                                     {item.label}
                                 </span>
                             </>

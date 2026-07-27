@@ -38,8 +38,9 @@ const HomePage = () => {
     return (
         <main className="pt-24 pb-32 px-4 retro-grid-complex min-h-screen flex flex-col items-center">
             <section className="w-full max-w-2xl mb-10 text-center relative z-20">
-                <h2 id="brain-title" className="text-[40px] leading-none mb-4 text-primary text-glow-primary uppercase italic tracking-tighter">EXPLORA TU CEREBRO</h2>
-                <p className="text-body-md text-primary/80 font-bold bg-primary/5 py-2 px-4 rounded border-x border-primary/20 inline-block">Interactúa con el biosistema neural para diagnosticar efectos.</p>
+                <h2 id="brain-title" className="font-display-lg-mobile md:font-display-lg text-primary drop-shadow-[0_0_30px_rgba(0,243,255,0.6)] text-glow-primary uppercase italic">EXPLORA TU CEREBRO</h2>
+                <div className="h-1 w-32 acid-gradient mx-auto my-6"></div>
+                <p className="font-body-md text-primary drop-shadow-[0_0_10px_rgba(0,243,255,0.3)] font-bold bg-primary/5 py-3 px-6 rounded border border-primary/30 inline-block">Interactúa con el biosistema neural para diagnosticar efectos.</p>
             </section>
 
             <section role="region" aria-labelledby="brain-title" className="relative w-full max-w-lg aspect-square flex items-center justify-center z-20 mb-4">
@@ -66,7 +67,7 @@ const HomePage = () => {
                 {!data ? (
                     <div className="col-span-full glass-card p-10 rounded-xl flex flex-col items-center text-center border-2 border-primary-container shadow-[0_0_30px_rgba(0,243,255,0.15)] cyber-border">
                         <span className="material-symbols-outlined text-primary-container text-6xl mb-6 animate-bounce drop-shadow-[0_0_10px_rgba(0,243,255,0.8)]">touch_app</span>
-                        <h3 className="text-headline-lg-mobile text-primary-container mb-4 tracking-[0.2em] uppercase italic text-glow-primary">Interacción Neural</h3>
+                        <h3 className="font-headline-md text-primary-container mb-4 tracking-[0.2em] uppercase italic text-glow-primary">Interacción Neural</h3>
                         <p className="text-body-md text-on-surface-variant max-w-sm font-medium leading-relaxed">
                             SISTEMA LISTO. SELECCIONE REGIÓN CORTICAL PARA ANALIZAR EL IMPACTO QUÍMICO EN EL POTENCIAL COGNITIVO.
                         </p>
@@ -83,8 +84,8 @@ const HomePage = () => {
                     >
                         <div className="flex justify-between items-center mb-8 pb-4 border-b border-primary/20">
                             <div className="flex flex-col">
-                                <span className="text-[10px] font-label-caps text-primary/60 tracking-[0.3em] mb-1">ANALIZANDO_ZONA</span>
-                                <h3 className="text-headline-lg-mobile text-3xl italic" style={{ color: data.color, textShadow: `0 0 10px ${data.color}` }}>{data.title}</h3>
+                                <span className="font-label-caps text-primary/60 mb-1">ANALIZANDO_ZONA</span>
+                                <h3 className="font-headline-md italic" style={{ color: data.color, textShadow: `0 0 10px ${data.color}` }}>{data.title}</h3>
                             </div>
                             <div className="p-3 bg-primary-container/20 border rounded-lg" style={{ borderColor: data.color }}>
                                 <span className="material-symbols-outlined text-4xl" style={{ color: data.color }}>{data.icon}</span>
@@ -92,11 +93,11 @@ const HomePage = () => {
                         </div>
                         <div className="flex gap-4 mb-8">
                             <div className="w-1 bg-gradient-to-b from-primary-container to-transparent opacity-50"></div>
-                            <p className="text-body-md text-on-surface text-lg leading-relaxed font-medium italic">{data.text}</p>
+                            <p className="text-body-lg text-on-surface font-medium italic">{data.text}</p>
                         </div>
                         <div className="flex flex-wrap gap-3">
-                            <span className="bg-primary-container/10 px-5 py-2 rounded text-label-caps text-primary-container font-bold border border-primary-container/40 uppercase tracking-widest shadow-[0_0_10px_rgba(0,243,255,0.2)]">Control de impulsos</span>
-                            <span className="bg-primary-container/10 px-5 py-2 rounded text-label-caps text-primary-container font-bold border border-primary-container/40 uppercase tracking-widest shadow-[0_0_10px_rgba(0,243,255,0.2)]">Lógica</span>
+                            <span className="bg-primary-container/10 px-5 py-2 rounded font-label-caps text-primary-container border border-primary-container/40 shadow-[0_0_10px_rgba(0,243,255,0.2)]">Control de impulsos</span>
+                            <span className="bg-primary-container/10 px-5 py-2 rounded font-label-caps text-primary-container border border-primary-container/40 shadow-[0_0_10px_rgba(0,243,255,0.2)]">Lógica</span>
                         </div>
                     </div>
                 )}
@@ -108,8 +109,8 @@ const HomePage = () => {
                         <span className="material-symbols-outlined text-white text-3xl group-hover:rotate-12 transition-transform">auto_stories</span>
                     </div>
                     <div>
-                        <p className="font-display-lg text-lg text-secondary-container text-glow-secondary font-bold uppercase italic leading-none mb-1">Aprender más</p>
-                        <p className="text-[10px] text-white/60 uppercase tracking-[0.2em] font-bold">Protocolos &amp; Guías</p>
+                        <p className="font-headline-md text-secondary-container text-glow-secondary uppercase italic leading-none mb-1">Aprender más</p>
+                        <p className="font-label-caps text-white/60">Protocolos &amp; Guías</p>
                     </div>
                 </div>
                 <div className="glass-card p-6 rounded-xl flex flex-col gap-4 border-2 border-primary-container/30 hover:border-primary-container hover:bg-primary-container/10 transition-all cursor-pointer group active:scale-95 shadow-[0_0_20px_rgba(0,243,255,0.1)]">
@@ -117,8 +118,8 @@ const HomePage = () => {
                         <span className="material-symbols-outlined text-on-primary text-3xl group-hover:scale-110 transition-transform" style={{ fontVariationSettings: 'FILL 1' }}>emergency_home</span>
                     </div>
                     <div>
-                        <p className="font-display-lg text-lg text-primary-container text-glow-primary font-bold uppercase italic leading-none mb-1">SOS Línea</p>
-                        <p className="text-[10px] text-white/60 uppercase tracking-[0.2em] font-bold">Ayuda Neural 24/7</p>
+                        <p className="font-headline-md text-primary-container text-glow-primary uppercase italic leading-none mb-1">SOS Línea</p>
+                        <p className="font-label-caps text-white/60">Ayuda Neural 24/7</p>
                     </div>
                 </div>
             </div>

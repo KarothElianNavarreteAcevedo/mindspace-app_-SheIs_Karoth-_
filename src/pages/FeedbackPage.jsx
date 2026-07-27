@@ -21,15 +21,16 @@ const FeedbackPage = () => {
     return (
         <main className="pt-24 pb-32 px-margin-mobile max-w-2xl mx-auto min-h-screen">
             <section className="mb-12 text-center">
-                <h2 className="retrowave-title text-4xl mb-4 leading-tight uppercase tracking-[0.1em] italic text-glow-cyan text-primary">Tu Opinión Cuenta</h2>
-                <p className="text-secondary font-label-caps text-[13px] opacity-90 tracking-widest uppercase">Mejora el sistema. Feedback prioritario.</p>
+                <h2 className="font-display-lg-mobile md:font-display-lg text-primary drop-shadow-[0_0_30px_rgba(0,243,255,0.6)] text-glow-cyan uppercase italic">Tu Opinión Cuenta</h2>
+                <div className="h-1 w-32 acid-gradient mx-auto my-6"></div>
+                <p className="text-secondary font-label-caps drop-shadow-[0_0_10px_rgba(254,0,254,0.4)]">Mejora el sistema. Feedback prioritario.</p>
             </section>
 
             <form className="space-y-8" onSubmit={handleSubmit}>
                 <div className="neon-gradient-card p-6 rounded-xl space-y-6">
                     <div className="flex items-center gap-3">
                         <span className="material-symbols-outlined text-primary-fixed-dim glow-icon">bolt</span>
-                        <label className="font-label-caps text-label-caps uppercase text-primary-fixed-dim tracking-widest">Utilidad del Sistema</label>
+                        <label className="font-label-caps text-primary-fixed-dim">Utilidad del Sistema</label>
                     </div>
                     <p className="text-on-surface text-lg font-headline-lg-mobile leading-snug">¿Qué tan vital es MindSpace en tu rutina?</p>
                     <div className="flex justify-between items-center gap-3 pt-2">
@@ -49,7 +50,7 @@ const FeedbackPage = () => {
                 <div className="neon-gradient-card p-6 rounded-xl space-y-6">
                     <div className="flex items-center gap-3">
                         <span className="material-symbols-outlined text-secondary glow-icon">palette</span>
-                        <label className="font-label-caps text-label-caps uppercase text-secondary tracking-widest">Vibe Aesthetic</label>
+                        <label className="font-label-caps text-secondary">Vibe Aesthetic</label>
                     </div>
                     <p className="text-on-surface text-lg font-headline-lg-mobile leading-snug">¿La estética "Retrowave" conecta contigo?</p>
                     <select className="retro-select bg-surface-container-high w-full p-4 font-body-md text-on-surface rounded-lg appearance-none cursor-pointer focus:ring-2 focus:ring-secondary/50 outline-none border border-primary/30">
@@ -64,7 +65,7 @@ const FeedbackPage = () => {
                 <div className="neon-gradient-card p-6 rounded-xl space-y-6">
                     <div className="flex items-center gap-3">
                         <span className="material-symbols-outlined text-tertiary-fixed-dim glow-icon">forum</span>
-                        <label className="font-label-caps text-label-caps uppercase text-tertiary-fixed-dim tracking-widest">Transmisión Abierta</label>
+                        <label className="font-label-caps text-tertiary-fixed-dim">Transmisión Abierta</label>
                     </div>
                     <p className="text-on-surface text-lg font-headline-lg-mobile leading-snug">¿Ideas para la evolución del espacio?</p>
                     <textarea className="glass-textarea bg-black/30 w-full p-4 font-body-md text-on-surface placeholder:text-on-surface-variant/40 rounded-xl resize-none border border-outline/30 focus:border-secondary focus:shadow-[0_0_20px_rgba(254,0,254,0.2)]" placeholder="Escribe tu mensaje aquí..." rows="4"></textarea>

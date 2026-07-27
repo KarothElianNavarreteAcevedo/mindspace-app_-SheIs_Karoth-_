@@ -8,8 +8,31 @@
 body {
   background-color: #131318;
   color: #e4e1e9;
+  font-family: 'Inter', sans-serif;
   overflow-x: hidden;
   min-height: 100dvh;
+}
+
+@layer base {
+  .font-body-lg,
+  .font-body-md,
+  .font-body-sm {
+    font-family: 'Inter', sans-serif;
+  }
+  .font-label-caps,
+  .font-label-lg,
+  .font-label-md,
+  .font-button-text {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+  }
+  .font-display-lg,
+  .font-display-lg-mobile,
+  .font-headline-lg,
+  .font-headline-lg-mobile,
+  .font-headline-md {
+    font-family: 'Syne', sans-serif;
+  }
 }
 
 /* Efectos CRT / Scanlines */

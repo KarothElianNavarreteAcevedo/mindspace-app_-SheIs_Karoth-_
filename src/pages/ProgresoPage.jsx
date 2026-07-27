@@ -34,21 +34,22 @@ const ProgresoPage = () => {
   return (
     <main className="pt-24 pb-32 px-4 max-w-2xl mx-auto min-h-screen">
       <section className="mb-10 text-center">
-        <h2 className="retrowave-title text-4xl mb-2 uppercase tracking-[0.1em] italic text-glow-cyan">Mi Progreso</h2>
-        <p className="text-secondary font-label-caps text-[13px] tracking-widest uppercase">Cada día cuenta en tu evolución</p>
+        <h2 className="font-display-lg-mobile md:font-display-lg text-primary drop-shadow-[0_0_30px_rgba(0,243,255,0.6)] text-glow-cyan uppercase italic">Mi Progreso</h2>
+        <div className="h-1 w-32 acid-gradient mx-auto my-6"></div>
+        <p className="text-secondary font-label-caps drop-shadow-[0_0_10px_rgba(254,0,254,0.4)]">Cada día cuenta en tu evolución</p>
       </section>
 
       <div className="glass-card p-8 rounded-xl mb-8 text-center border-primary/30">
         <span className="material-symbols-outlined text-primary text-6xl mb-4" style={{ fontVariationSettings: "'FILL' 1" }}>calendar_month</span>
-        <p className="font-label-caps text-primary text-[11px] tracking-[0.3em] mb-2">DÍAS DE RECUPERACIÓN</p>
-        <p className="text-[72px] font-syne font-extrabold text-primary neon-glow-cyan leading-none">{days}</p>
-        <p className="text-on-surface-variant text-sm mt-2">días desde que comenzaste</p>
+        <p className="font-label-caps text-primary mb-2">DÍAS DE RECUPERACIÓN</p>
+        <p className="font-display-lg text-primary neon-glow-cyan">{days}</p>
+        <p className="font-body-md text-on-surface-variant mt-2">días desde que comenzaste</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 mb-8">
         <div className="glass-card p-6 rounded-xl border-secondary/30">
           <span className="material-symbols-outlined text-secondary text-3xl mb-2" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
-          <p className="font-label-caps text-[10px] text-secondary tracking-widest mb-1">SALUD RECUPERADA</p>
+          <p className="font-label-caps text-secondary mb-1">SALUD RECUPERADA</p>
           <p className="text-3xl font-bold text-secondary">{health}%</p>
           <div className="mt-3 h-2 bg-white/5 rounded-full overflow-hidden">
             <div className="h-full bg-gradient-to-r from-secondary to-primary rounded-full transition-all duration-1000" style={{ width: `${health}%` }}></div>
@@ -56,14 +57,14 @@ const ProgresoPage = () => {
         </div>
         <div className="glass-card p-6 rounded-xl border-tertiary-fixed/30">
           <span className="material-symbols-outlined text-tertiary-fixed text-3xl mb-2" style={{ fontVariationSettings: "'FILL' 1" }}>savings</span>
-          <p className="font-label-caps text-[10px] text-tertiary-fixed tracking-widest mb-1">AHORRO ESTIMADO</p>
+          <p className="font-label-caps text-tertiary-fixed mb-1">AHORRO ESTIMADO</p>
           <p className="text-3xl font-bold text-tertiary-fixed">${savings.toLocaleString()}</p>
-          <p className="text-[10px] text-on-surface-variant mt-1">COP — en consumo evitable</p>
+          <p className="font-label-md text-on-surface-variant mt-1">COP — en consumo evitable</p>
         </div>
       </div>
 
       <section>
-        <h3 className="font-label-caps text-primary text-sm tracking-[0.2em] mb-4 flex items-center gap-2">
+        <h3 className="font-label-caps text-primary mb-4 flex items-center gap-2">
           <span className="material-symbols-outlined text-primary">military_tech</span>
           MEDALLAS DE LOGRO
         </h3>
@@ -73,8 +74,8 @@ const ProgresoPage = () => {
               <span className={`material-symbols-outlined text-3xl ${a.color} ${a.earned ? 'animate-pulse-intense' : ''}`} style={{ fontVariationSettings: "'FILL' 1" }}>
                 {a.icon}
               </span>
-              <p className={`text-[11px] font-bold mt-2 ${a.earned ? 'text-white' : 'text-on-surface-variant'}`}>{a.label}</p>
-              <p className="text-[9px] text-on-surface-variant">{a.desc}</p>
+              <p className={`font-label-caps mt-2 ${a.earned ? 'text-white' : 'text-on-surface-variant'}`}>{a.label}</p>
+              <p className="font-label-md text-on-surface-variant">{a.desc}</p>
             </div>
           ))}
         </div>
